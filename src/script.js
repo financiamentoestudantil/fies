@@ -313,3 +313,94 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    preencherSemestres();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    preencherSemestres();
+});
+
+function preencherSemestres() {
+    const selectSemestre = document.getElementById("semestre");
+
+    // Data atual
+    const dataAtual = new Date();
+    const anoAtual = dataAtual.getFullYear();
+    const mesAtual = dataAtual.getMonth() + 1; // Janeiro é 0, adicionamos 1
+
+    // Determinar os dois semestres anteriores
+    let semestres = [];
+    if (mesAtual <= 6) {
+        // Estamos no 1º semestre
+        semestres.push(`02/${anoAtual - 1}`, `01/${anoAtual - 1}`);
+    } else {
+        // Estamos no 2º semestre
+        semestres.push(`01/${anoAtual}`, `02/${anoAtual - 1}`);
+    }
+
+    // Adicionar opções no select
+    selectSemestre.innerHTML = ""; // Limpar opções existentes
+
+    // Adicionar um placeholder inicial
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Selecione";
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    placeholder.hidden = true; // Esconde a opção no menu suspenso
+    selectSemestre.appendChild(placeholder);
+
+    // Adicionar os semestres calculados
+    semestres.forEach((semestre) => {
+        const option = document.createElement("option");
+        option.value = semestre;
+        option.textContent = semestre;
+        selectSemestre.appendChild(option);
+    });
+}
+
+function atualizarMesesTabela() {
+    const selectSemestre = document.getElementById("semestre");
+    const semestreSelecionado = selectSemestre.value;
+    const tabelaLinhas = document.querySelectorAll("table tbody tr");
+
+    if (!semestreSelecionado) return;
+
+    // Determinar os meses do semestre selecionado
+    const [semestre, ano] = semestreSelecionado.split("/");
+    let mesesCorrespondentes = [];
+
+    if (semestre === "01") {
+        mesesCorrespondentes = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"].map(
+            (mes) => `${mes}/${ano}`
+        );
+    } else if (semestre === "02") {
+        mesesCorrespondentes = ["Jul", "Ago", "Set", "Out", "Nov", "Dez"].map(
+            (mes) => `${mes}/${ano}`
+        );
+    }
+
+    // Atualizar as linhas da tabela dinamicamente
+    tabelaLinhas.forEach((linha, index) => {
+        const selectMesAno = linha.querySelector("select.mesAno");
+
+        // Limpa o select antes de preencher
+        selectMesAno.innerHTML = "";
+
+        // Adicionar as opções dos meses correspondentes
+        if (index < mesesCorrespondentes.length) {
+            const option = document.createElement("option");
+            option.value = mesesCorrespondentes[index];
+            option.textContent = mesesCorrespondentes[index];
+            selectMesAno.appendChild(option);
+        }
+
+        // Habilita temporariamente para aplicar alterações e bloqueia novamente
+        selectMesAno.disabled = false;
+        setTimeout(() => {
+            selectMesAno.disabled = true;
+        }, 100); // Bloqueia novamente após 100ms
+    });
+}

@@ -79,6 +79,35 @@ label {
     display: block;
 }
 
+select.mesAno:disabled {
+    background-color: var(--white); /* Fundo branco, como um campo ativo */
+    color: var(--blue-05); /* Texto preto */
+    cursor: default; /* Cursor padrão */
+    border: 1px solid var(--blue-05); /* Borda normal */
+    appearance: none; /* Remove estilos padrão do navegador */
+    -moz-appearance: none; /* Remove estilos padrão no Firefox */
+    -webkit-appearance: none; /* Remove estilos padrão no WebKit */
+}
+
+select#semestre {
+    width: 100%; /* Ajusta a largura para ocupar todo o espaço */
+    padding: 12px; /* Espaçamento interno */
+    font-size: 14px; /* Tamanho da fonte */
+    border: 1px solid var(--blue-05); /* Cor da borda */
+    border-radius: 8px; /* Borda arredondada */
+    background-color: var(--white); /* Fundo branco */
+    color: var(--blue-03); /* Cor do texto */
+    margin-bottom: 10px; /* Espaçamento inferior */
+    appearance: none; /* Remove estilos padrão do navegador */
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+select#semestre:focus {
+    border-color: var(--byzantine-blue); /* Cor da borda ao focar */
+    outline: none; /* Remove o contorno padrão */
+}
+
 /* Estilo para campos de texto */
 input[type="text"], input[type="email"], input[type="number"], select {
     width: 100%;
