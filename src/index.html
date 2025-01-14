@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requerimento de Reembolso</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Requerimento de Reembolso</h1>
+        <p class="subheading">Fundo de Financiamento Estudantil - FIES</p>
+
+        <!-- Seção 1 - Qualificação -->
+        <div class="section">
+            <h2>1 - Qualificação</h2>
+            <form id="reembolsoForm">
+                <div class="form-group">
+                    <label for="nome">Nome do estudante:</label>
+                    <input type="text" id="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" maxlength="14" required>
+                </div>                
+                <div class="form-group">
+                    <label for="uf">UF:</label>
+                    <select id="uf" required>
+                        <!-- As opções serão carregadas aqui -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="municipio">Município:</label>
+                    <input type="text" id="municipio" required>
+                </div>
+                <div class="form-group">
+                    <label for="curso">Curso:</label>
+                    <input type="text" id="curso" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone:</label>
+                    <input type="text" id="telefone" maxlength="15" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" required>
+                    <span id="msgemail"></span> <!-- Onde a mensagem de validação será exibida -->
+                </div>
+            </form>
+        </div>
+
+        <!-- Seção 2 - Justificativa -->
+        <div class="section">
+            <h2>2 - Justificativa do pedido</h2>
+            <p>Com fundamento na Portaria Normativa MEC nº 209, de 07 de março de 2018, artigo 58, § 6º...</p>
+        </div>
+
+        <!-- Seção 3 - Demonstrativo financeiro -->
+        <div class="section">
+            <h2>3 - Demonstrativo financeiro</h2>
+            <p>Insira os dados na tabela abaixo e clique em "Calcular reembolso". Após o cálculo, clique em "Exportar requerimento" para gerar o documento.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mês/Ano</th>
+                        <th>Valor da mensalidade</th>
+                        <th>Valor pago pelo FIES</th>
+                        <th>Valor pago pelo estudante</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 6 Linhas de input -->
+                    <tr>
+                        <td><select class="mesAno">
+                            <option value="01/2024">Jan/2024</option>
+                            <option value="02/2024">Fev/2024</option>
+                            <option value="03/2024">Mar/2024</option>
+                            <option value="04/2024">Abr/2024</option>
+                            <option value="05/2024">Mai/2024</option>
+                            <option value="06/2024">Jun/2024</option>
+                            <option value="07/2024">Jul/2024</option>
+                            <option value="08/2024">Ago/2024</option>
+                            <option value="09/2024">Set/2024</option>
+                            <option value="10/2024">Out/2024</option>
+                            <option value="11/2024">Nov/2024</option>
+                            <option value="12/2024">Dez/2024</option>
+                        </select></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                    </tr>
+                    <tr>
+                        <td><select class="mesAno">
+                            <option value="01/2024">Jan/2024</option>
+                            <option value="02/2024">Fev/2024</option>
+                            <option value="03/2024">Mar/2024</option>
+                            <option value="04/2024">Abr/2024</option>
+                            <option value="05/2024">Mai/2024</option>
+                            <option value="06/2024">Jun/2024</option>
+                            <option value="07/2024">Jul/2024</option>
+                            <option value="08/2024">Ago/2024</option>
+                            <option value="09/2024">Set/2024</option>
+                            <option value="10/2024">Out/2024</option>
+                            <option value="11/2024">Nov/2024</option>
+                            <option value="12/2024">Dez/2024</option>
+                        </select></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                    </tr>
+                    <tr>
+                        <td><select class="mesAno">
+                            <option value="01/2024">Jan/2024</option>
+                            <option value="02/2024">Fev/2024</option>
+                            <option value="03/2024">Mar/2024</option>
+                            <option value="04/2024">Abr/2024</option>
+                            <option value="05/2024">Mai/2024</option>
+                            <option value="06/2024">Jun/2024</option>
+                            <option value="07/2024">Jul/2024</option>
+                            <option value="08/2024">Ago/2024</option>
+                            <option value="09/2024">Set/2024</option>
+                            <option value="10/2024">Out/2024</option>
+                            <option value="11/2024">Nov/2024</option>
+                            <option value="12/2024">Dez/2024</option>
+                        </select></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                    </tr>
+                    <tr>
+                        <td><select class="mesAno">
+                            <option value="01/2024">Jan/2024</option>
+                            <option value="02/2024">Fev/2024</option>
+                            <option value="03/2024">Mar/2024</option>
+                            <option value="04/2024">Abr/2024</option>
+                            <option value="05/2024">Mai/2024</option>
+                            <option value="06/2024">Jun/2024</option>
+                            <option value="07/2024">Jul/2024</option>
+                            <option value="08/2024">Ago/2024</option>
+                            <option value="09/2024">Set/2024</option>
+                            <option value="10/2024">Out/2024</option>
+                            <option value="11/2024">Nov/2024</option>
+                            <option value="12/2024">Dez/2024</option>
+                        </select></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                    </tr>
+                    <tr>
+                        <td><select class="mesAno">
+                            <option value="01/2024">Jan/2024</option>
+                            <option value="02/2024">Fev/2024</option>
+                            <option value="03/2024">Mar/2024</option>
+                            <option value="04/2024">Abr/2024</option>
+                            <option value="05/2024">Mai/2024</option>
+                            <option value="06/2024">Jun/2024</option>
+                            <option value="07/2024">Jul/2024</option>
+                            <option value="08/2024">Ago/2024</option>
+                            <option value="09/2024">Set/2024</option>
+                            <option value="10/2024">Out/2024</option>
+                            <option value="11/2024">Nov/2024</option>
+                            <option value="12/2024">Dez/2024</option>
+                        </select></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                    </tr>
+                    <tr>
+                        <td><select class="mesAno">
+                            <option value="01/2024">Jan/2024</option>
+                            <option value="02/2024">Fev/2024</option>
+                            <option value="03/2024">Mar/2024</option>
+                            <option value="04/2024">Abr/2024</option>
+                            <option value="05/2024">Mai/2024</option>
+                            <option value="06/2024">Jun/2024</option>
+                            <option value="07/2024">Jul/2024</option>
+                            <option value="08/2024">Ago/2024</option>
+                            <option value="09/2024">Set/2024</option>
+                            <option value="10/2024">Out/2024</option>
+                            <option value="11/2024">Nov/2024</option>
+                            <option value="12/2024">Dez/2024</option>
+                        </select></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                        <td><input type="text" class="monetary-input" placeholder="R$ 0,00"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="result">
+                <p>Valor total a ser reembolsado: <span id="totalReembolso">R$ 0.00</span></p>
+            </div>
+        </div>
+
+        <!-- Botões -->
+        <div class="buttons">
+            <button type="button" onclick="calcularReembolso()">Calcular reembolso</button>
+            <button type="button" onclick="exportarRequerimento()">Exportar requerimento</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+</html>

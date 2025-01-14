@@ -1,0 +1,252 @@
+/* Reset básico */
+:root {
+    /* Cores principais */
+    --byzantine-blue: #4256C8;
+    --white: #FFFFFF;
+    --orange: #EE6A43;
+    --yellow: #FED766;
+    --green: #63C132;
+
+    /* Gradiente de tons */
+    --blue-01: #3B4DB4;
+    --blue-02: #2E3C8C;
+    --blue-03: #212B64;
+    --blue-04: #141A3C;
+    --blue-05: #070914;
+    --blue-06: #DBE8FB;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--blue-06); /* Usando a cor como variável */
+    padding: 20px;
+}
+
+.container {
+    max-width: 60%;
+    margin: 0 auto;
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    color: var(--blue-03);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.subheading {
+    font-size: 16px;
+    color: var(--blue-02);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 18px;
+    color: var(--blue-04);
+    margin-bottom: 15px;
+}
+
+form .form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    color: var(--blue-03);
+    margin-bottom: 5px;
+}
+
+.validation-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Estilo para campos de texto */
+input[type="text"], input[type="email"], input[type="number"], select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--blue-05);
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: var(--white); /* Define o fundo como branco */
+    margin-bottom: 10px;
+}
+
+/* Para quando o campo recebe foco */
+input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus, select:focus {
+    outline: none;
+    border-color: var(--byzantine-blue);
+}
+
+/* Estilo do card de valor */
+.card {
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--blue-06);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.card p {
+    color: var(--blue-03);
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.card span {
+    color: var(--green);
+    font-size: 20px;
+}
+
+.card input {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--green);
+    background: transparent;
+    border: none;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Estilo da tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    background-color: var(--white);
+    color: var(--blue-03);
+}
+
+th {
+    background-color: var(--blue-02);
+    color: var(--white);
+}
+
+
+/* Ajustes para dispositivos menores */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        max-width: 95%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .subheading {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    label {
+        font-size: 12px;
+    }
+
+    input[type="text"], input[type="email"], input[type="number"], select {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .card {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    th, td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .result {
+        font-size: 16px;
+    }
+}
+
+/* Estilo dos botões */
+.buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+button {
+    padding: 12px 25px;
+    background-color: var(--byzantine-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--blue-01);
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Estilo de resultado */
+.result {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--green);
+}
+
+/* Adiciona uma borda ao redor do conteúdo */
+.container {
+    border: 1px solid var(--blue-06);
+}
