@@ -53,6 +53,7 @@ window.onload = function() {
 
 function calcularReembolso() {
     let totalReembolso = 0;
+
     // Seleciona todas as linhas da tabela de dados
     const linhas = document.querySelectorAll("table tbody tr");
 
@@ -75,9 +76,15 @@ function calcularReembolso() {
         const estudante = limparValor(
             linha.querySelector('td:nth-child(4) input').value
         );
+        const outrosDebitos = limparValor(
+            linha.querySelector('td:nth-child(5) input').value
+        );
+        const outrosCreditos = limparValor(
+            linha.querySelector('td:nth-child(6) input').value
+        );
 
         // Calcula o valor a ser reembolsado e soma
-        totalReembolso += fies + estudante - mensalidade;
+        totalReembolso += fies + estudante - mensalidade - outrosDebitos + outrosCreditos;
     });
 
     // Atualiza o valor total na página
@@ -85,6 +92,12 @@ function calcularReembolso() {
         .toFixed(2)
         .replace(".", ",")}`;
 }
+
+// Adiciona o evento de click no botão "Calcular reembolso"
+document
+    .querySelector('button[onclick="calcularReembolso()"]')
+    .addEventListener("click", calcularReembolso);
+
 
 // Adiciona o evento de click no botão "Calcular reembolso"
 document
