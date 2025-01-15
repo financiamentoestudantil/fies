@@ -81,6 +81,7 @@ label {
 }
 
 select.mesAno:disabled {
+    font-family: 'Poppins', sans-serif;
     background-color: var(--white); /* Fundo branco, como um campo ativo */
     color: var(--blue-05); /* Texto preto */
     cursor: default; /* Cursor padrão */
@@ -91,6 +92,7 @@ select.mesAno:disabled {
 }
 
 select#semestre, select#uf {
+    font-family: 'Poppins', sans-serif;
     background-color: var(--white); /* Fundo branco */
     color: var(--blue-03); /* Cor do texto */
     appearance: none; /* Remove estilos padrão do navegador */
@@ -128,6 +130,7 @@ label[for="semestre"] {
 
 /* Estilo para campos de texto */
 input[type="text"], input[type="email"], input[type="number"], select {
+    font-family: 'Poppins', sans-serif;
     width: 100%;
     padding: 12px;
     border: 1px solid var(--blue-05);
@@ -160,48 +163,12 @@ select:not(:focus):not(:hover) {
     box-shadow: none; /* Remove qualquer sombra */
 }
 
-/* Estilo do card de valor */
-.card {
-    background-color: var(--white);
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid var(--blue-06);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 15px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.card p {
-    color: var(--blue-03);
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.card span {
-    color: var(--green);
-    font-size: 20px;
-}
-
-.card input {
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--green);
-    background: transparent;
-    border: none;
-    text-align: center;
-    width: 100%;
-    margin-top: 10px;
-}
-
 /* Estilo da tabela */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
     table-layout: fixed;
-    word-wrap: break-word;
 }
 
 th, td {
@@ -212,13 +179,63 @@ th, td {
 }
 
 th:first-child, td:first-child {
-    min-width: 90px; /* Define largura mínima para a coluna Mês/Ano */
+    min-width: 110px; /* Define largura mínima para a coluna Mês/Ano */
     white-space: nowrap; /* Impede quebra de linha dentro do texto */
 }
+
+/* Centraliza o texto dentro dos selects na coluna Mês/Ano */
+td:first-child select {
+    text-align: center;
+}
+
 
 th {
     background-color: var(--blue-02);
     color: var(--white);
+}
+
+/* Estilo para o campo de texto (textarea) */
+textarea {
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--blue-05);
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: var(--white);
+    color: var(--blue-03);
+    resize: none; /* Impede redimensionamento do campo */
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilo para o placeholder no textarea */
+textarea::placeholder {
+    font-family: 'Poppins', sans-serif; /* Fonte do placeholder */
+    font-size: 14px; /* Tamanho da fonte do placeholder */
+    color: var(--blue-05); /* Cor do placeholder */
+    opacity: 0.5; /* Transparência do placeholder */
+}
+
+/* Efeito de hover no campo de texto */
+textarea:hover {
+    border-color: var(--blue-03);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Efeito de foco no campo de texto */
+textarea:focus {
+    outline: none;
+    border-color: var(--byzantine-blue);
+    box-shadow: 0 0 8px rgba(66, 86, 200, 0.4);
+}
+
+/* Estiliza apenas o label com for="semestre" */
+label[for="outros-detalhes"] {
+    color: var(--blue-04);
+    font-size: 14px; /* Aumenta o tamanho da fonte */
+    margin-top: 14px; /* Adiciona espaço abaixo do rótulo */
+    display: block; /* Garante que o rótulo fique em sua própria linha */
 }
 
 /* Container dos botões */
@@ -320,6 +337,14 @@ button:focus {
     th, td {
         padding: 8px;
         font-size: 12px;
+    }
+
+    textarea {
+        font-size: 10px;
+    }
+
+    textarea::placeholder {
+        font-size: 12px; /* Tamanho da fonte do placeholder */
     }
 
     .buttons {
