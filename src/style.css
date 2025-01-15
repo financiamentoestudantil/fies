@@ -33,6 +33,7 @@ body {
     margin: 0 auto;
     background-color: var(--white);
     padding: 20px;
+    border: 1px solid var(--blue-06);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -46,7 +47,7 @@ h1 {
 
 .subheading {
     font-size: 16px;
-    color: var(--blue-02);
+    color: var(--blue-03);
     text-align: center;
     margin-bottom: 20px;
 }
@@ -68,7 +69,7 @@ form .form-group {
 label {
     display: block;
     font-size: 14px;
-    color: var(--blue-03);
+    color: var(--blue-04);
     margin-bottom: 5px;
 }
 
@@ -89,26 +90,40 @@ select.mesAno:disabled {
     -webkit-appearance: none; /* Remove estilos padrão no WebKit */
 }
 
-select#semestre {
-    width: 100%; /* Mantém a largura total */
-    padding: 14px 12px; /* Aumenta o espaçamento interno */
-    font-size: 16px; /* Aumenta o tamanho da fonte */
-    height: 48px; /* Define uma altura fixa */
-    border: 1px solid var(--blue-05); /* Cor da borda */
-    border-radius: 8px; /* Borda arredondada */
+select#semestre, select#uf {
     background-color: var(--white); /* Fundo branco */
     color: var(--blue-03); /* Cor do texto */
-    margin-bottom: 15px; /* Aumenta o espaçamento inferior */
     appearance: none; /* Remove estilos padrão do navegador */
     -moz-appearance: none;
     -webkit-appearance: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona um leve sombreamento */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
 }
 
-select#semestre:focus {
+/* Efeito de hover para #semestre e #uf */
+select#semestre:hover, select#uf:hover {
+    border-color: var(--blue-03); /* Cor da borda ao passar o mouse */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leve sombra ao passar o mouse */
+}
+
+/* Efeito de foco para #semestre e #uf */
+select#semestre:focus, select#uf:focus {
     border-color: var(--byzantine-blue); /* Cor da borda ao focar */
+    box-shadow: 0 0 8px rgba(66, 86, 200, 0.4); /* Adiciona brilho suave ao focar */
     outline: none; /* Remove o contorno padrão */
-    box-shadow: 0 0 8px rgba(66, 86, 200, 0.4); /* Adiciona um efeito ao focar */
+}
+
+/* Restaurar estilo padrão ao perder hover e foco */
+select#semestre:not(:focus):not(:hover), select#uf:not(:focus):not(:hover) {
+    border-color: var(--blue-05); /* Volta para a cor padrão */
+    box-shadow: none; /* Remove qualquer sombra */
+}
+
+/* Estiliza apenas o label com for="semestre" */
+label[for="semestre"] {
+    color: var(--blue-04);
+    font-size: 14px; /* Aumenta o tamanho da fonte */
+    margin-top: 16px; /* Adiciona espaço abaixo do rótulo */
+    display: block; /* Garante que o rótulo fique em sua própria linha */
 }
 
 /* Estilo para campos de texto */
@@ -120,12 +135,29 @@ input[type="text"], input[type="email"], input[type="number"], select {
     font-size: 14px;
     background-color: var(--white); /* Define o fundo como branco */
     margin-bottom: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
 }
 
-/* Para quando o campo recebe foco */
+/* Efeito de hover */
+input[type="text"]:hover, input[type="email"]:hover, input[type="number"]:hover, select:hover {
+    border-color: var(--blue-03); /* Cor da borda ao passar o mouse */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leve sombra ao passar o mouse */
+}
+
+/* Efeito de foco */
 input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus, select:focus {
-    outline: none;
-    border-color: var(--byzantine-blue);
+    outline: none; /* Remove o contorno padrão */
+    border-color: var(--byzantine-blue); /* Cor da borda ao focar */
+    box-shadow: 0 0 8px rgba(66, 86, 200, 0.4); /* Adiciona brilho suave ao focar */
+}
+
+/* Restaurar estilo padrão ao perder hover e foco */
+input[type="text"]:not(:focus):not(:hover), 
+input[type="email"]:not(:focus):not(:hover), 
+input[type="number"]:not(:focus):not(:hover), 
+select:not(:focus):not(:hover) {
+    border-color: var(--blue-05); /* Volta para a cor padrão */
+    box-shadow: none; /* Remove qualquer sombra */
 }
 
 /* Estilo do card de valor */
@@ -179,11 +211,68 @@ th, td {
     color: var(--blue-03);
 }
 
+th:first-child, td:first-child {
+    min-width: 90px; /* Define largura mínima para a coluna Mês/Ano */
+    white-space: nowrap; /* Impede quebra de linha dentro do texto */
+}
+
 th {
     background-color: var(--blue-02);
     color: var(--white);
 }
 
+/* Container dos botões */
+.buttons {
+    display: flex; /* Alinha os botões lado a lado */
+    justify-content: center; /* Centraliza os botões horizontalmente */
+    gap: 70px; /* Espaçamento entre os botões */
+    flex-wrap: wrap; /* Permite que os botões quebrem linha em telas pequenas */
+    margin-top: 20px;
+}
+
+/* Botão padrão */
+button {
+    padding: 18px 28px; /* Ajusta o tamanho do botão */
+    background-color: var(--byzantine-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px; /* Reduz tamanho da fonte */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    flex: 1; /* Faz os botões terem o mesmo tamanho */
+    max-width: 200px; /* Define uma largura máxima */
+}
+
+/* Hover para dispositivos desktop */
+button:hover {
+    background-color: var(--white); /* Cor de fundo no hover */
+    color: var(--blue-03); /* Cor do texto no hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombreamento leve */
+    transform: translateY(-2px); /* Elevação do botão */
+}
+
+/* Estado ativo para toque em dispositivos móveis */
+button:active {
+    transform: scale(0.96); /* Botão encolhe ligeiramente no toque */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Sombra fica mais pronunciada */
+    background-color: var(--blue-01); /* Fundo mais escuro */
+}
+
+/* Foco para acessibilidade */
+button:focus {
+    outline: none;
+}
+
+/* Resultado do valor */
+.result {
+    margin-top: 15px;
+    font-size: 16px; /* Reduz o tamanho do texto */
+    font-weight: bold;
+    color: var(--green);
+    text-align: center; /* Centraliza o texto */
+}
 
 /* Ajustes para dispositivos menores */
 @media (max-width: 768px) {
@@ -233,52 +322,17 @@ th {
         font-size: 12px;
     }
 
+    .buttons {
+        gap: 25px;
+    }
+
     button {
-        padding: 10px 20px;
-        font-size: 14px;
+        padding: 8px 15px; /* Botões menores em dispositivos móveis */
+        font-size: 12px; /* Fonte menor */
+        max-width: 150px; /* Largura máxima reduzida */
     }
 
     .result {
-        font-size: 16px;
+        font-size: 14px; /* Texto do resultado menor */
     }
-}
-
-/* Estilo dos botões */
-.buttons {
-    margin-top: 20px;
-    text-align: center;
-}
-
-button {
-    padding: 12px 25px;
-    background-color: var(--byzantine-blue);
-    color: var(--white);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: var(--blue-01);
-}
-
-button:focus {
-    outline: none;
-}
-
-/* Estilo de resultado */
-.result {
-    margin-top: 15px;
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--green);
-}
-
-/* Adiciona uma borda ao redor do conteúdo */
-.container {
-    border: 1px solid var(--blue-06);
 }

@@ -99,12 +99,6 @@ document
     .addEventListener("click", calcularReembolso);
 
 
-// Adiciona o evento de click no botão "Calcular reembolso"
-document
-    .querySelector('button[onclick="calcularReembolso()"]')
-    .addEventListener("click", calcularReembolso);
-
-
 // Função para exportar o requerimento para PDF
 function exportarRequerimento() {
     const { jsPDF } = window.jspdf;
@@ -193,24 +187,32 @@ document.getElementById('cpf').addEventListener('input', function () {
 // Função para carregar as opções de UF no campo suspenso
 function carregarUF() {
     const ufs = [
-        "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
+        "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", 
+        "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", 
+        "RS", "RO", "RR", "SC", "SP", "SE", "TO"
     ];
     
     // Seleciona o campo de UF no HTML
     const selectUF = document.getElementById('uf');
 
-    // Adiciona uma opção padrão no início
-    let option = document.createElement('option');
-    option.text = 'Selecione';
-    option.value = '';
-    selectUF.add(option);
+    // Limpar opções existentes
+    selectUF.innerHTML = "";
+
+    // Adicionar um placeholder inicial
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Selecione";
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    placeholder.hidden = true; // Esconde a opção no menu suspenso
+    selectUF.appendChild(placeholder);
 
     // Preenche o campo com as opções de UF
-    ufs.forEach(function(uf) {
-        let option = document.createElement('option');
-        option.text = uf;
+    ufs.forEach((uf) => {
+        const option = document.createElement('option');
+        option.textContent = uf;
         option.value = uf;
-        selectUF.add(option);
+        selectUF.appendChild(option);
     });
 }
 
@@ -349,9 +351,6 @@ document.addEventListener('DOMContentLoaded', () => {
     preencherSemestres();
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    preencherSemestres();
-});
 
 function preencherSemestres() {
     const selectSemestre = document.getElementById("semestre");
