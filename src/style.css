@@ -199,7 +199,6 @@ td:first-child select {
     text-align-last: center;
 }
 
-
 th {
     background-color: var(--blue-02);
     color: var(--white);
@@ -406,6 +405,17 @@ button:focus {
         padding: 8px;
         font-size: 12px;
     }
+
+    td {
+        padding: 2px 8px; /* Reduz o padding vertical e horizontal */
+        font-size: 12px; /* Ajusta o tamanho da fonte para caber melhor */
+        line-height: 1.1; /* Diminui a altura das linhas */
+    }
+
+    tbody tr:first-child td {
+        padding-top: 12px;
+    }
+    
 
     textarea {
         font-size: 10px;
