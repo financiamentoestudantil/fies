@@ -90,22 +90,25 @@ select.mesAno:disabled {
 }
 
 select#semestre {
-    width: 100%; /* Ajusta a largura para ocupar todo o espaço */
-    padding: 12px; /* Espaçamento interno */
-    font-size: 14px; /* Tamanho da fonte */
+    width: 100%; /* Mantém a largura total */
+    padding: 14px 12px; /* Aumenta o espaçamento interno */
+    font-size: 16px; /* Aumenta o tamanho da fonte */
+    height: 48px; /* Define uma altura fixa */
     border: 1px solid var(--blue-05); /* Cor da borda */
     border-radius: 8px; /* Borda arredondada */
     background-color: var(--white); /* Fundo branco */
     color: var(--blue-03); /* Cor do texto */
-    margin-bottom: 10px; /* Espaçamento inferior */
+    margin-bottom: 15px; /* Aumenta o espaçamento inferior */
     appearance: none; /* Remove estilos padrão do navegador */
     -moz-appearance: none;
     -webkit-appearance: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona um leve sombreamento */
 }
 
 select#semestre:focus {
     border-color: var(--byzantine-blue); /* Cor da borda ao focar */
     outline: none; /* Remove o contorno padrão */
+    box-shadow: 0 0 8px rgba(66, 86, 200, 0.4); /* Adiciona um efeito ao focar */
 }
 
 /* Estilo para campos de texto */

@@ -57,21 +57,39 @@ function calcularReembolso() {
     const linhas = document.querySelectorAll("table tbody tr");
 
     // Para cada linha, pega os valores inseridos
-    linhas.forEach(function(linha) {
-        const mensalidade = parseFloat(linha.querySelector('td:nth-child(2) input').value) || 0;
-        const fies = parseFloat(linha.querySelector('td:nth-child(3) input').value) || 0;
-        const estudante = parseFloat(linha.querySelector('td:nth-child(4) input').value) || 0;
+    linhas.forEach(function (linha) {
+        // Função para limpar e converter o valor monetário para número
+        function limparValor(valor) {
+            if (!valor) return 0; // Retorna 0 se o campo estiver vazio
+            return parseFloat(
+                valor.replace("R$", "").replace(".", "").replace(",", ".").trim()
+            ) || 0;
+        }
+
+        const mensalidade = limparValor(
+            linha.querySelector('td:nth-child(2) input').value
+        );
+        const fies = limparValor(
+            linha.querySelector('td:nth-child(3) input').value
+        );
+        const estudante = limparValor(
+            linha.querySelector('td:nth-child(4) input').value
+        );
 
         // Calcula o valor a ser reembolsado e soma
-        totalReembolso += (fies + estudante - mensalidade);
+        totalReembolso += fies + estudante - mensalidade;
     });
 
     // Atualiza o valor total na página
-    document.getElementById('totalReembolso').innerText = `R$ ${totalReembolso.toFixed(2)}`;
+    document.getElementById("totalReembolso").innerText = `R$ ${totalReembolso
+        .toFixed(2)
+        .replace(".", ",")}`;
 }
 
 // Adiciona o evento de click no botão "Calcular reembolso"
-document.querySelector('button[onclick="calcularReembolso()"]').addEventListener('click', calcularReembolso);
+document
+    .querySelector('button[onclick="calcularReembolso()"]')
+    .addEventListener("click", calcularReembolso);
 
 
 // Função para exportar o requerimento para PDF
