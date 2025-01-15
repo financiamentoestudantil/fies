@@ -137,10 +137,11 @@
                 <textarea id="outros-detalhes" placeholder="Especifique 'Outros Créditos' e 'Outros Débitos'" rows="3"></textarea>
             </div>
             <div class="result">
-                <p>Valor total a ser reembolsado: <span id="totalReembolso">R$ 0.00</span></p>
-            </div>
-        </div>
-
+                <div id="totalContainer" class="result-card positive">
+                    <p>Valor total a ser reembolsado:</p>
+                    <h2 id="totalReembolso">R$ 0,00</h2>
+                </div>
+            </div>           
         <!-- Botões -->
         <div class="buttons">
             <button type="button" onclick="calcularReembolso()">Calcular reembolso</button>

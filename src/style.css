@@ -101,6 +101,11 @@ select#semestre, select#uf {
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
 }
 
+select#semestre {
+text-align: center;
+text-align-last: center;
+}
+
 /* Efeito de hover para #semestre e #uf */
 select#semestre:hover, select#uf:hover {
     border-color: var(--blue-03); /* Cor da borda ao passar o mouse */
@@ -129,16 +134,21 @@ label[for="semestre"] {
 }
 
 /* Estilo para campos de texto */
-input[type="text"], input[type="email"], input[type="number"], select {
+input[type="text"], 
+input[type="email"], 
+input[type="number"], 
+select {
     font-family: 'Poppins', sans-serif;
     width: 100%;
-    padding: 12px;
+    padding: 0 12px; /* Ajusta padding para não interferir na altura */
+    height: 40px; /* Altura fixa para padronização */
     border: 1px solid var(--blue-05);
     border-radius: 8px;
     font-size: 14px;
     background-color: var(--white); /* Define o fundo como branco */
     margin-bottom: 10px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
+    box-sizing: border-box; /* Inclui padding e borda na altura */
 }
 
 /* Efeito de hover */
@@ -186,6 +196,7 @@ th:first-child, td:first-child {
 /* Centraliza o texto dentro dos selects na coluna Mês/Ano */
 td:first-child select {
     text-align: center;
+    text-align-last: center;
 }
 
 
@@ -249,6 +260,7 @@ label[for="outros-detalhes"] {
 
 /* Botão padrão */
 button {
+    font-family: 'Poppins', sans-serif;
     padding: 18px 28px; /* Ajusta o tamanho do botão */
     background-color: var(--byzantine-blue);
     color: var(--white);
@@ -259,7 +271,7 @@ button {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
     flex: 1; /* Faz os botões terem o mesmo tamanho */
-    max-width: 200px; /* Define uma largura máxima */
+    max-width: 250px; /* Define uma largura máxima */
 }
 
 /* Hover para dispositivos desktop */
@@ -282,13 +294,69 @@ button:focus {
     outline: none;
 }
 
-/* Resultado do valor */
+/* Estilo geral da área de resultado */
 .result {
-    margin-top: 15px;
-    font-size: 16px; /* Reduz o tamanho do texto */
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Estilo do cartão de resultado */
+.result-card {
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 16px;
     font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    margin: 0 auto;
+    background-color: var(--white);
+    transition: all 0.3s ease;
+}
+
+/* Texto explicativo */
+.result-card p {
+    font-size: 14px;
+    color: var(--blue-04);
+    margin-bottom: 10px;
+}
+
+/* Valor principal */
+.result-card h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Cores para valores positivos */
+.result-card.positive {
+    border: 2px solid var(--green);
+    background-color: rgba(99, 193, 50, 0.1); /* Fundo verde claro */
     color: var(--green);
-    text-align: center; /* Centraliza o texto */
+}
+
+/* Cores para valores negativos */
+.result-card.negative {
+    border: 2px solid red;
+    background-color: rgba(255, 0, 0, 0.1); /* Fundo vermelho claro */
+    color: red;
+}
+
+/* Animação para valor atualizado */
+.result-card h2.animate {
+    animation: bounce 0.5s ease-out;
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* Ajustes para dispositivos menores */
@@ -357,7 +425,17 @@ button:focus {
         max-width: 150px; /* Largura máxima reduzida */
     }
 
-    .result {
-        font-size: 14px; /* Texto do resultado menor */
+    .result-card {
+        padding: 15px; /* Reduz o espaçamento interno */
+        font-size: 14px; /* Reduz o tamanho da fonte */
+        max-width: 90%; /* Permite o cartão ocupar 90% da largura da tela */
+    }
+
+    .result-card h2 {
+        font-size: 20px; /* Reduz o tamanho do valor principal */
+    }
+
+    .result-card p {
+        font-size: 12px; /* Reduz o tamanho do texto explicativo */
     }
 }

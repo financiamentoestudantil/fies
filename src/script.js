@@ -88,9 +88,26 @@ function calcularReembolso() {
     });
 
     // Atualiza o valor total na página
-    document.getElementById("totalReembolso").innerText = `R$ ${totalReembolso
+    const totalReembolsoElement = document.getElementById("totalReembolso");
+    totalReembolsoElement.innerText = `R$ ${totalReembolso
         .toFixed(2)
         .replace(".", ",")}`;
+
+    // Atualiza a classe do cartão com base no valor
+    const totalContainer = document.getElementById("totalContainer");
+    if (totalReembolso < 0) {
+        totalContainer.classList.remove("positive");
+        totalContainer.classList.add("negative");
+    } else {
+        totalContainer.classList.remove("negative");
+        totalContainer.classList.add("positive");
+    }
+
+    // Adiciona animação de destaque no valor
+    totalReembolsoElement.classList.add("animate");
+    setTimeout(() => {
+        totalReembolsoElement.classList.remove("animate");
+    }, 500); // Remove a classe após 500ms (duração da animação)
 }
 
 // Adiciona o evento de click no botão "Calcular reembolso"
