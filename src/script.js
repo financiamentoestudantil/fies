@@ -115,141 +115,157 @@ document
     .querySelector('button[onclick="calcularReembolso()"]')
     .addEventListener("click", calcularReembolso);
 
+function exportarRequerimento() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-    function exportarRequerimento() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-    
-        // Títulos gerais em Negrito
+    // Estilo e cores
+    const corTituloPrincipal = "#070914"; // Cor para os títulos principais
+    const corTextoSecundario = "#141A3C"; // Cor para o texto secundário
+    const corTextoCelas = "#141A3C"; // Cor para o texto das células da tabela
+
+    // Títulos gerais em Negrito
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(corTituloPrincipal); // Aplica a cor principal
+    doc.setFontSize(18);
+    doc.text("Requerimento de Reembolso", 105, 15, null, null, 'center');
+
+    doc.setFontSize(10);
+    doc.setTextColor(corTextoSecundario); // Aplica a cor secundária
+    doc.text("Fundo de Financiamento Estudantil - FIES", 105, 22, null, null, 'center');
+
+    // Seção 1 - Qualificação
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(corTituloPrincipal); // Cor para o título
+    doc.setFontSize(12);
+    doc.text("1 - Qualificação", 20, 35);
+
+    // Dados do formulário
+    const nome = document.getElementById("nome").value || "Não informado";
+    const cpf = document.getElementById("cpf").value || "Não informado";
+    const municipio = document.getElementById("municipio").value || "Não informado";
+    const uf = document.getElementById("uf").value || "Não informado";
+    const curso = document.getElementById("curso").value || "Não informado";
+    const telefone = document.getElementById("telefone").value || "Não informado";
+    const email = document.getElementById("email").value || "Não informado";
+
+    let startY = 45;
+    const fields = [
+        { label: "Nome", value: nome },
+        { label: "CPF", value: cpf },
+        { label: "Município", value: municipio },
+        { label: "UF", value: uf },
+        { label: "Curso", value: curso },
+        { label: "Telefone", value: telefone },
+        { label: "E-mail", value: email },
+    ];
+
+    fields.forEach((field, index) => {
+        // Título em Bold com cor secundária
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(14);
-        doc.text("Requerimento de Reembolso", 105, 15, null, null, 'center');
         doc.setFontSize(10);
-        doc.text("Fundo de Financiamento Estudantil - FIES", 105, 22, null, null, 'center');
-    
-        // Seção 1 - Qualificação
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(12);
-        doc.text("1 - Qualificação", 20, 35);
-    
-        // Dados do formulário
-        const nome = document.getElementById("nome").value || "Não informado";
-        const cpf = document.getElementById("cpf").value || "Não informado";
-        const municipio = document.getElementById("municipio").value || "Não informado";
-        const uf = document.getElementById("uf").value || "Não informado";
-        const curso = document.getElementById("curso").value || "Não informado";
-        const telefone = document.getElementById("telefone").value || "Não informado";
-        const email = document.getElementById("email").value || "Não informado";
-    
-        let startY = 45;
-        const fields = [
-            { label: "Nome", value: nome },
-            { label: "CPF", value: cpf },
-            { label: "Município", value: municipio },
-            { label: "UF", value: uf },
-            { label: "Curso", value: curso },
-            { label: "Telefone", value: telefone },
-            { label: "E-mail", value: email },
-        ];
-    
-        fields.forEach((field, index) => {
-            // Título em Bold
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(10);
-            doc.text(`${field.label}:`, 20, startY + index * 7);
-    
-            // Valor em Normal
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(10);
-            doc.text(`${field.value}`, 50, startY + index * 7);
-        });
-    
-        // Seção 2 - Justificativa do pedido
-        startY = startY + fields.length * 7 + 10;
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(12);
-        doc.text("2 - Justificativa do pedido", 20, startY);
-    
+        doc.setTextColor(corTextoSecundario); // Cor secundária
+        doc.text(`${field.label}:`, 20, startY + index * 7);
+
+        // Valor em Normal
         doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
-        const justificativa = "Com fundamento na Portaria Normativa MEC nº 209, de 07 de março de 2018, artigo 58, § 6º...";
-        doc.text(justificativa, 20, startY + 7, { maxWidth: 170 });
-    
-        // Seção 3 - Demonstrativo financeiro
-        startY = startY + 20; // Ajustar Y após a justificativa
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(12);
-        doc.text("3 - Demonstrativo financeiro", 20, startY);
-    
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(10);
-        const demonstrativo = "Insira os dados na tabela abaixo e clique em 'Calcular reembolso'. Após o cálculo, clique em 'Exportar requerimento' para gerar o documento.";
-        doc.text(demonstrativo, 20, startY + 7, { maxWidth: 170 });
-    
-        // Adicionar tabela de valores
-        startY = startY + 20; // Ajustar Y após o demonstrativo
-        doc.autoTable({
-            head: [
-                [
-                    'Mês/Ano',
-                    'Valor da mensalidade',
-                    'Valor pago pelo FIES',
-                    'Valor pago pelo estudante',
-                    'Outros Débitos',
-                    'Outros Créditos',
-                ],
+        doc.text(`${field.value}`, 50, startY + index * 7);
+    });
+
+    // Seção 2 - Justificativa do pedido
+    startY = startY + fields.length * 7 + 10;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(corTituloPrincipal); // Cor para o título
+    doc.text("2 - Justificativa do pedido", 20, startY);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(corTextoSecundario); // Cor secundária
+    const justificativa = "Com fundamento na Portaria Normativa MEC nº 209, de 07 de março de 2018, artigo 58, § 6º...";
+    doc.text(justificativa, 20, startY + 7, { maxWidth: 170 });
+
+    // Seção 3 - Demonstrativo financeiro
+    startY = startY + 20; // Ajustar Y após a justificativa
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(corTituloPrincipal); // Cor para o título
+    doc.text("3 - Demonstrativo financeiro", 20, startY);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(corTextoSecundario); // Cor secundária
+    const demonstrativo = "Insira os dados na tabela abaixo e clique em 'Calcular reembolso'. Após o cálculo, clique em 'Exportar requerimento' para gerar o documento.";
+    doc.text(demonstrativo, 20, startY + 7, { maxWidth: 170 });
+
+    // Adicionar tabela de valores
+    startY = startY + 20; // Ajustar Y após o demonstrativo
+    doc.autoTable({
+        head: [
+            [
+                'Mês/Ano',
+                'Valor da mensalidade',
+                'Valor pago pelo FIES',
+                'Valor pago pelo estudante',
+                'Outros Débitos',
+                'Outros Créditos',
             ],
-            body: Array.from(document.querySelectorAll("table tbody tr")).map(linha => [
-                linha.querySelector('td:nth-child(1) select').value || "-",
-                `${linha.querySelector('td:nth-child(2) input').value || '0,00'}`,
-                `${linha.querySelector('td:nth-child(3) input').value || '0,00'}`,
-                `${linha.querySelector('td:nth-child(4) input').value || '0,00'}`,
-                `${linha.querySelector('td:nth-child(5) input').value || '0,00'}`,
-                `${linha.querySelector('td:nth-child(6) input').value || '0,00'}`,
-            ]),
-            startY: startY,
-            theme: 'grid',
-            headStyles: { 
-                fillColor: "#4256C8", 
-                textColor: "#FFFFFF", // Cor do texto do cabeçalho
-                halign: "center", // Centraliza o texto horizontalmente no cabeçalho
-                valign: "middle", // Centraliza o texto verticalmente no cabeçalho
-            },
-            styles: { 
-                fontSize: 9, 
-                cellPadding: 3, 
-                halign: "center", // Centraliza o texto horizontalmente nas células
-                valign: "middle", // Centraliza o texto verticalmente nas células
-            },
-            columnStyles: {
-                0: { cellWidth: 20 },
-                1: { cellWidth: 32 },
-                2: { cellWidth: 32 },
-                3: { cellWidth: 32 },
-                4: { cellWidth: 32 },
-                5: { cellWidth: 32 },
-            },
-        });
-    
-        // Título "Valor Total a Ser Reembolsado" em Bold
-        doc.setFont("helvetica", "bold");
-        const totalReembolso = document.getElementById("totalReembolso").textContent || "R$ 0,00";
-        doc.text(`Valor Total a Ser Reembolsado: ${totalReembolso}`, 20, doc.lastAutoTable.finalY + 10);
-    
-        // Detalhes adicionais em fonte normal
-        const outrosDetalhes = document.getElementById("outros-detalhes").value || "Nenhum detalhe adicional informado.";
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(10);
-        doc.text("Detalhes adicionais:", 20, doc.lastAutoTable.finalY + 20);
-        doc.setFontSize(9);
-        doc.text(outrosDetalhes, 20, doc.lastAutoTable.finalY + 30, { maxWidth: 170 });
-    
-        // Salvar o PDF
-        doc.save('requerimento_reembolso.pdf');
-    }
-    
-    
+        ],
+        body: Array.from(document.querySelectorAll("table tbody tr")).map(linha => [
+            linha.querySelector('td:nth-child(1) select').value || "-",
+            `${linha.querySelector('td:nth-child(2) input').value || '0,00'}`,
+            `${linha.querySelector('td:nth-child(3) input').value || '0,00'}`,
+            `${linha.querySelector('td:nth-child(4) input').value || '0,00'}`,
+            `${linha.querySelector('td:nth-child(5) input').value || '0,00'}`,
+            `${linha.querySelector('td:nth-child(6) input').value || '0,00'}`,
+        ]),
+        startY: startY,
+        theme: 'grid',
+        headStyles: { 
+            fillColor: "#4256C8", 
+            textColor: "#FFFFFF", 
+            halign: "center", 
+            valign: "middle", 
+        },
+        styles: { 
+            fontSize: 9, 
+            cellPadding: 3, 
+            textColor: corTextoCelas, // Cor das células
+            halign: "center", 
+            valign: "middle", 
+        },
+        columnStyles: {
+            0: { cellWidth: 20 },
+            1: { cellWidth: 32 },
+            2: { cellWidth: 32 },
+            3: { cellWidth: 32 },
+            4: { cellWidth: 32 },
+            5: { cellWidth: 32 },
+        },
+    });
 
+    // Título "Valor Total a Ser Reembolsado" em Bold com cor principal
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(corTituloPrincipal); // Cor para o título principal
+    const totalReembolso = document.getElementById("totalReembolso").textContent || "R$ 0,00";
+    doc.text(`Valor Total a Ser Reembolsado: ${totalReembolso}`, 20, doc.lastAutoTable.finalY + 10);
+
+    // Detalhes adicionais com cor secundária
+    const outrosDetalhes = document.getElementById("outros-detalhes").value || "Nenhum detalhe adicional informado.";
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(corTextoSecundario); // Cor secundária
+    doc.text("Detalhes adicionais:", 20, doc.lastAutoTable.finalY + 20);
+    doc.setFontSize(9);
+    doc.text(outrosDetalhes, 20, doc.lastAutoTable.finalY + 30, { maxWidth: 170 });
+
+    // Salvar o PDF
+    doc.save('requerimento_reembolso.pdf');
+}
+        
+    
 // Função para aplicar a máscara no CPF
 function mascaraCPF(input) {
     // Remove todos os caracteres não numéricos
