@@ -252,7 +252,6 @@ label[for="outros-detalhes"] {
 .buttons {
     display: flex; /* Alinha os botões lado a lado */
     justify-content: center; /* Centraliza os botões horizontalmente */
-    gap: 70px; /* Espaçamento entre os botões */
     flex-wrap: wrap; /* Permite que os botões quebrem linha em telas pequenas */
     margin-top: 20px;
 }
@@ -423,10 +422,6 @@ button:focus {
 
     textarea::placeholder {
         font-size: 12px; /* Tamanho da fonte do placeholder */
-    }
-
-    .buttons {
-        gap: 25px;
     }
 
     button {

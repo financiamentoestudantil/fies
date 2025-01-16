@@ -110,10 +110,10 @@ function calcularReembolso() {
     }, 500); // Remove a classe após 500ms (duração da animação)
 }
 
-// Adiciona o evento de click no botão "Calcular reembolso"
-document
-    .querySelector('button[onclick="calcularReembolso()"]')
-    .addEventListener("click", calcularReembolso);
+// Adiciona o evento de blur (ou change) aos inputs monetários
+document.querySelectorAll(".monetary-input").forEach((input) => {
+    input.addEventListener("blur", calcularReembolso); // Executa o cálculo ao sair do campo
+});
 
 function exportarRequerimento() {
     const { jsPDF } = window.jspdf;
