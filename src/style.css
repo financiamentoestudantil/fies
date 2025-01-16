@@ -200,7 +200,7 @@ td:first-child select {
 }
 
 th {
-    background-color: var(--blue-02);
+    background-color: var(--byzantine-blue);
     color: var(--white);
 }
 

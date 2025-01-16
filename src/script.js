@@ -116,67 +116,139 @@ document
     .addEventListener("click", calcularReembolso);
 
 
-// Função para exportar o requerimento para PDF
-function exportarRequerimento() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    // Adicionar título
-    doc.setFontSize(16);
-    doc.text("Requerimento de Reembolso", 20, 20);
-    doc.setFontSize(12);
-    doc.text("Fundo de Financiamento Estudantil - FIES", 20, 30);
-
-    // Adicionar dados do formulário
-    const nome = document.getElementById("nome").value;
-    const cpf = document.getElementById("cpf").value;
-    const municipio = document.getElementById("municipio").value;
-    const uf = document.getElementById("uf").value;
-    const curso = document.getElementById("curso").value;
-    const telefone = document.getElementById("telefone").value;
-    const email = document.getElementById("email").value;
-
-    doc.text(`Nome: ${nome}`, 20, 40);
-    doc.text(`CPF: ${cpf}`, 20, 50);
-    doc.text(`Município: ${municipio}`, 20, 60);
-    doc.text(`UF: ${uf}`, 20, 70);
-    doc.text(`Curso: ${curso}`, 20, 80);
-    doc.text(`Telefone: ${telefone}`, 20, 90);
-    doc.text(`E-mail: ${email}`, 20, 100);
-
-    // Adicionar tabela de valores
-    const linhas = document.querySelectorAll("table tbody tr");
-    let startY = 110;
-    doc.text("Mês/Ano", 20, startY);
-    doc.text("Valor da mensalidade", 60, startY);
-    doc.text("Valor pago pelo FIES", 120, startY);
-    doc.text("Valor pago pelo estudante", 180, startY);
-
-    startY += 10;
-
-    linhas.forEach((linha, index) => {
-        const mesAno = linha.querySelector('td:nth-child(1) select').value;
-        const valorMensalidade = linha.querySelector('td:nth-child(2) input').value;
-        const valorFIES = linha.querySelector('td:nth-child(3) input').value;
-        const valorEstudante = linha.querySelector('td:nth-child(4) input').value;
-
-        doc.text(`${mesAno}`, 20, startY);
-        doc.text(`R$ ${valorMensalidade}`, 60, startY);
-        doc.text(`R$ ${valorFIES}`, 120, startY);
-        doc.text(`R$ ${valorEstudante}`, 180, startY);
-
-        startY += 10;
-    });
-
-    // Adicionar valor total a ser reembolsado
-    const totalReembolso = document.getElementById("totalReembolso").textContent;
-    doc.text(`Valor Total a Ser Reembolsado: ${totalReembolso}`, 20, startY + 10);
-
-    // Salvar o PDF
-    doc.save('requerimento_reembolso.pdf');
-}
-
-
+    function exportarRequerimento() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+    
+        // Títulos gerais em Negrito
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+        doc.text("Requerimento de Reembolso", 105, 15, null, null, 'center');
+        doc.setFontSize(10);
+        doc.text("Fundo de Financiamento Estudantil - FIES", 105, 22, null, null, 'center');
+    
+        // Seção 1 - Qualificação
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.text("1 - Qualificação", 20, 35);
+    
+        // Dados do formulário
+        const nome = document.getElementById("nome").value || "Não informado";
+        const cpf = document.getElementById("cpf").value || "Não informado";
+        const municipio = document.getElementById("municipio").value || "Não informado";
+        const uf = document.getElementById("uf").value || "Não informado";
+        const curso = document.getElementById("curso").value || "Não informado";
+        const telefone = document.getElementById("telefone").value || "Não informado";
+        const email = document.getElementById("email").value || "Não informado";
+    
+        let startY = 45;
+        const fields = [
+            { label: "Nome", value: nome },
+            { label: "CPF", value: cpf },
+            { label: "Município", value: municipio },
+            { label: "UF", value: uf },
+            { label: "Curso", value: curso },
+            { label: "Telefone", value: telefone },
+            { label: "E-mail", value: email },
+        ];
+    
+        fields.forEach((field, index) => {
+            // Título em Bold
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(10);
+            doc.text(`${field.label}:`, 20, startY + index * 7);
+    
+            // Valor em Normal
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.text(`${field.value}`, 50, startY + index * 7);
+        });
+    
+        // Seção 2 - Justificativa do pedido
+        startY = startY + fields.length * 7 + 10;
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.text("2 - Justificativa do pedido", 20, startY);
+    
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        const justificativa = "Com fundamento na Portaria Normativa MEC nº 209, de 07 de março de 2018, artigo 58, § 6º...";
+        doc.text(justificativa, 20, startY + 7, { maxWidth: 170 });
+    
+        // Seção 3 - Demonstrativo financeiro
+        startY = startY + 20; // Ajustar Y após a justificativa
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.text("3 - Demonstrativo financeiro", 20, startY);
+    
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        const demonstrativo = "Insira os dados na tabela abaixo e clique em 'Calcular reembolso'. Após o cálculo, clique em 'Exportar requerimento' para gerar o documento.";
+        doc.text(demonstrativo, 20, startY + 7, { maxWidth: 170 });
+    
+        // Adicionar tabela de valores
+        startY = startY + 20; // Ajustar Y após o demonstrativo
+        doc.autoTable({
+            head: [
+                [
+                    'Mês/Ano',
+                    'Valor da mensalidade',
+                    'Valor pago pelo FIES',
+                    'Valor pago pelo estudante',
+                    'Outros Débitos',
+                    'Outros Créditos',
+                ],
+            ],
+            body: Array.from(document.querySelectorAll("table tbody tr")).map(linha => [
+                linha.querySelector('td:nth-child(1) select').value || "-",
+                `${linha.querySelector('td:nth-child(2) input').value || '0,00'}`,
+                `${linha.querySelector('td:nth-child(3) input').value || '0,00'}`,
+                `${linha.querySelector('td:nth-child(4) input').value || '0,00'}`,
+                `${linha.querySelector('td:nth-child(5) input').value || '0,00'}`,
+                `${linha.querySelector('td:nth-child(6) input').value || '0,00'}`,
+            ]),
+            startY: startY,
+            theme: 'grid',
+            headStyles: { 
+                fillColor: "#4256C8", 
+                textColor: "#FFFFFF", // Cor do texto do cabeçalho
+                halign: "center", // Centraliza o texto horizontalmente no cabeçalho
+                valign: "middle", // Centraliza o texto verticalmente no cabeçalho
+            },
+            styles: { 
+                fontSize: 9, 
+                cellPadding: 3, 
+                halign: "center", // Centraliza o texto horizontalmente nas células
+                valign: "middle", // Centraliza o texto verticalmente nas células
+            },
+            columnStyles: {
+                0: { cellWidth: 20 },
+                1: { cellWidth: 32 },
+                2: { cellWidth: 32 },
+                3: { cellWidth: 32 },
+                4: { cellWidth: 32 },
+                5: { cellWidth: 32 },
+            },
+        });
+    
+        // Título "Valor Total a Ser Reembolsado" em Bold
+        doc.setFont("helvetica", "bold");
+        const totalReembolso = document.getElementById("totalReembolso").textContent || "R$ 0,00";
+        doc.text(`Valor Total a Ser Reembolsado: ${totalReembolso}`, 20, doc.lastAutoTable.finalY + 10);
+    
+        // Detalhes adicionais em fonte normal
+        const outrosDetalhes = document.getElementById("outros-detalhes").value || "Nenhum detalhe adicional informado.";
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.text("Detalhes adicionais:", 20, doc.lastAutoTable.finalY + 20);
+        doc.setFontSize(9);
+        doc.text(outrosDetalhes, 20, doc.lastAutoTable.finalY + 30, { maxWidth: 170 });
+    
+        // Salvar o PDF
+        doc.save('requerimento_reembolso.pdf');
+    }
+    
+    
 
 // Função para aplicar a máscara no CPF
 function mascaraCPF(input) {

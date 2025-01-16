@@ -18,7 +18,7 @@
             <form id="reembolsoForm">
                 <div class="form-group">
                     <label for="nome">Nome do estudante:</label>
-                    <input type="text" id="nome" required>
+                    <input type="text" id="nome" autocomplete="name" required>
                 </div>
                 <div class="form-group">
                     <label for="cpf">CPF:</label>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-group">
                     <label for="municipio">Município:</label>
-                    <input type="text" id="municipio" required>
+                    <input type="text" id="municipio" autocomplete="address-level2" required>
                 </div>
                 <div class="form-group">
                     <label for="curso">Curso:</label>
@@ -40,11 +40,11 @@
                 </div>
                 <div class="form-group">
                     <label for="telefone">Telefone:</label>
-                    <input type="text" id="telefone" maxlength="15" required>
+                    <input type="text" id="telefone" autocomplete="tel" maxlength="15" required>
                 </div>
                 <div class="form-group">
                     <label for="email">E-mail:</label>
-                    <input type="email" id="email" required>
+                    <input type="email" id="email" autocomplete="email" required>
                     <span id="msgemail"></span> <!-- Onde a mensagem de validação será exibida -->
                 </div>
             </form>
@@ -134,7 +134,7 @@
             <!-- Campo de texto para especificar créditos e débitos -->
             <div class="form-group">
                 <label for="outros-detalhes">Detalhes adicionais:</label>
-                <textarea id="outros-detalhes" placeholder="Especifique 'Outros Créditos' e 'Outros Débitos'" rows="3"></textarea>
+                <textarea id="outros-detalhes" placeholder="Especifique 'Outros Débitos' e 'Outros Créditos '" rows="3"></textarea>
             </div>
             <div class="result">
                 <div id="totalContainer" class="result-card positive">
@@ -151,5 +151,6 @@
 
     <script src="src/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </body>
 </html>
