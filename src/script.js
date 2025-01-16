@@ -480,11 +480,11 @@ function preencherSemestres() {
     // Adiciona os dois semestres anteriores
     semestres.push(`02/${anoAtual - 1}`, `01/${anoAtual - 1}`);
 
-    // Ordenar em ordem crescente
+    // Ordenar em ordem decrescente
     semestres.sort((a, b) => {
         const [semestreA, anoA] = a.split("/");
         const [semestreB, anoB] = b.split("/");
-        return parseInt(anoA) - parseInt(anoB) || parseInt(semestreA) - parseInt(semestreB);
+        return parseInt(anoB) - parseInt(anoA) || parseInt(semestreB) - parseInt(semestreA);
     });
 
     // Limpar opções existentes
