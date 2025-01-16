@@ -465,18 +465,30 @@ function preencherSemestres() {
     const anoAtual = dataAtual.getFullYear();
     const mesAtual = dataAtual.getMonth() + 1; // Janeiro é 0, adicionamos 1
 
-    // Determinar os dois semestres anteriores
+    // Determinar os semestres
     let semestres = [];
+
+    // Adiciona o semestre atual
     if (mesAtual <= 6) {
         // Estamos no 1º semestre
-        semestres.push(`02/${anoAtual - 1}`, `01/${anoAtual - 1}`);
+        semestres.push(`01/${anoAtual}`);
     } else {
         // Estamos no 2º semestre
-        semestres.push(`01/${anoAtual}`, `02/${anoAtual - 1}`);
+        semestres.push(`02/${anoAtual}`);
     }
 
-    // Adicionar opções no select
-    selectSemestre.innerHTML = ""; // Limpar opções existentes
+    // Adiciona os dois semestres anteriores
+    semestres.push(`02/${anoAtual - 1}`, `01/${anoAtual - 1}`);
+
+    // Ordenar em ordem crescente
+    semestres.sort((a, b) => {
+        const [semestreA, anoA] = a.split("/");
+        const [semestreB, anoB] = b.split("/");
+        return parseInt(anoA) - parseInt(anoB) || parseInt(semestreA) - parseInt(semestreB);
+    });
+
+    // Limpar opções existentes
+    selectSemestre.innerHTML = "";
 
     // Adicionar um placeholder inicial
     const placeholder = document.createElement("option");
@@ -539,3 +551,4 @@ function atualizarMesesTabela() {
         }, 100); // Bloqueia novamente após 100ms
     });
 }
+
