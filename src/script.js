@@ -76,15 +76,18 @@ function calcularReembolso() {
         const estudante = limparValor(
             linha.querySelector('td:nth-child(4) input').value
         );
-        const outrosDebitos = limparValor(
+        const seguroTaxa = limparValor(
             linha.querySelector('td:nth-child(5) input').value
         );
-        const outrosCreditos = limparValor(
+        const outrosDebitos = limparValor(
             linha.querySelector('td:nth-child(6) input').value
+        );
+        const outrosCreditos = limparValor(
+            linha.querySelector('td:nth-child(7) input').value
         );
 
         // Calcula o valor a ser reembolsado e soma
-        totalReembolso += fies + estudante - mensalidade - outrosDebitos + outrosCreditos;
+        totalReembolso += fies + estudante - mensalidade - outrosDebitos - seguroTaxa + outrosCreditos;
     });
 
     // Atualiza o valor total na página
@@ -123,6 +126,8 @@ function exportarRequerimento() {
     const corTituloPrincipal = "#070914"; // Cor para os títulos principais
     const corTextoSecundario = "#141A3C"; // Cor para o texto secundário
     const corTextoCelas = "#141A3C"; // Cor para o texto das células da tabela
+    const corDebito = "#EE6A43"; // Cor para débitos
+    const corCredito = "#0880cf"; // Cor para créditos
 
     // Títulos gerais em Negrito
     doc.setFont("helvetica", "bold");
@@ -143,8 +148,7 @@ function exportarRequerimento() {
     // Dados do formulário
     const nome = document.getElementById("nome").value || "Não informado";
     const cpf = document.getElementById("cpf").value || "Não informado";
-    const municipio = document.getElementById("municipio").value || "Não informado";
-    const uf = document.getElementById("uf").value || "Não informado";
+    const numero_matricula = document.getElementById("numero-matricula").value || "Não informado";
     const curso = document.getElementById("curso").value || "Não informado";
     const telefone = document.getElementById("telefone").value || "Não informado";
     const email = document.getElementById("email").value || "Não informado";
@@ -153,8 +157,7 @@ function exportarRequerimento() {
     const fields = [
         { label: "Nome", value: nome },
         { label: "CPF", value: cpf },
-        { label: "Município", value: municipio },
-        { label: "UF", value: uf },
+        { label: "Num Matrícula", value: numero_matricula },
         { label: "Curso", value: curso },
         { label: "Telefone", value: telefone },
         { label: "E-mail", value: email },
@@ -208,18 +211,29 @@ function exportarRequerimento() {
                 'Valor da mensalidade',
                 'Valor pago pelo FIES',
                 'Valor pago pelo estudante',
+                'Seguro Prestamista + Taxa Administrativa (Caixa)',
                 'Outros Débitos',
                 'Outros Créditos',
             ],
         ],
-        body: Array.from(document.querySelectorAll("table tbody tr")).map(linha => [
-            linha.querySelector('td:nth-child(1) select').value || "-",
-            `${linha.querySelector('td:nth-child(2) input').value || '0,00'}`,
-            `${linha.querySelector('td:nth-child(3) input').value || '0,00'}`,
-            `${linha.querySelector('td:nth-child(4) input').value || '0,00'}`,
-            `${linha.querySelector('td:nth-child(5) input').value || '0,00'}`,
-            `${linha.querySelector('td:nth-child(6) input').value || '0,00'}`,
-        ]),
+        body: Array.from(document.querySelectorAll("table tbody tr")).map(linha => {
+            const mensalidade = linha.querySelector('td:nth-child(2) input').value || '0,00';
+            const fies = linha.querySelector('td:nth-child(3) input').value || '0,00';
+            const estudante = linha.querySelector('td:nth-child(4) input').value || '0,00';
+            const seguroTaxa = linha.querySelector('td:nth-child(5) input').value || '0,00';
+            const outrosDebitos = linha.querySelector('td:nth-child(6) input').value || '0,00';
+            const outrosCreditos = linha.querySelector('td:nth-child(7) input').value || '0,00';
+
+            return [
+                linha.querySelector('td:nth-child(1) select').value || "-",
+                { content: mensalidade, styles: { textColor: corDebito } },
+                { content: fies, styles: { textColor: corCredito } },
+                { content: estudante, styles: { textColor: corCredito } },
+                { content: seguroTaxa, styles: { textColor: corDebito } },
+                { content: outrosDebitos, styles: { textColor: corDebito } },
+                { content: outrosCreditos, styles: { textColor: corCredito } },
+            ];
+        }),
         startY: startY,
         theme: 'grid',
         headStyles: { 
@@ -237,11 +251,12 @@ function exportarRequerimento() {
         },
         columnStyles: {
             0: { cellWidth: 20 },
-            1: { cellWidth: 32 },
-            2: { cellWidth: 32 },
-            3: { cellWidth: 32 },
-            4: { cellWidth: 32 },
-            5: { cellWidth: 32 },
+            1: { cellWidth: 27 },
+            2: { cellWidth: 27 },
+            3: { cellWidth: 27 },
+            4: { cellWidth: 27 },
+            5: { cellWidth: 27 },
+            6: { cellWidth: 27 },
         },
     });
 
@@ -262,7 +277,7 @@ function exportarRequerimento() {
     doc.text(outrosDetalhes, 20, doc.lastAutoTable.finalY + 30, { maxWidth: 170 });
 
     // Salvar o PDF
-    doc.save('requerimento_reembolso.pdf');
+    doc.save('Profies - Requerimento Reembolso.pdf');
 }
         
     
