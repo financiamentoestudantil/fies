@@ -272,6 +272,13 @@ label[for="outros-detalhes"] {
     display: block; /* Garante que o rótulo fique em sua própria linha */
 }
 
+label[for="chave-pix"] {
+    color: var(--blue-04);
+    font-size: 14px; /* Aumenta o tamanho da fonte */
+    margin-top: 14px; /* Adiciona espaço abaixo do rótulo */
+    display: block; /* Garante que o rótulo fique em sua própria linha */
+}
+
 /* Container dos botões */
 .buttons {
     display: flex; /* Alinha os botões lado a lado */
@@ -472,3 +479,13 @@ button:focus {
         font-size: 12px; /* Reduz o tamanho do texto explicativo */
     }
 }
+
+/* Estilo para as linhas alternadas da tabela */
+table tr:nth-child(odd) {
+    background-color: #f0f8ff; /* Cor azul clara */
+}
+
+table tr:nth-child(even) {
+    background-color: #ffffff; /* Cor branca */
+}
+
