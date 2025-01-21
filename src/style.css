@@ -24,7 +24,7 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Helvetica', sans-serif;
     background: url('./assets/background.png') no-repeat center center, var(--blue-06);
     background-size: cover; /* Ajusta a imagem para cobrir todo o fundo */
     padding: 20px;
@@ -105,7 +105,7 @@ label {
 }
 
 select.mesAno:disabled {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Helvetica', sans-serif;
     background-color: var(--white); /* Fundo branco, como um campo ativo */
     color: var(--blue-05); /* Texto preto */
     cursor: default; /* Cursor padrão */
@@ -116,7 +116,7 @@ select.mesAno:disabled {
 }
 
 select#semestre, select#uf {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Helvetica', sans-serif;
     background-color: var(--white); /* Fundo branco */
     color: var(--blue-03); /* Cor do texto */
     appearance: none; /* Remove estilos padrão do navegador */
@@ -162,7 +162,7 @@ input[type="text"],
 input[type="email"], 
 input[type="number"], 
 select {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Helvetica', sans-serif;
     width: 100%;
     padding: 0 12px; /* Ajusta padding para não interferir na altura */
     height: 40px; /* Altura fixa para padronização */
@@ -230,7 +230,7 @@ th {
 
 /* Estilo para o campo de texto (textarea) */
 textarea {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Helvetica', sans-serif;
     width: 100%;
     padding: 12px;
     border: 1px solid var(--blue-05);
@@ -245,7 +245,7 @@ textarea {
 
 /* Estilo para o placeholder no textarea */
 textarea::placeholder {
-    font-family: 'Poppins', sans-serif; /* Fonte do placeholder */
+    font-family: 'Helvetica', sans-serif; /* Fonte do placeholder */
     font-size: 14px; /* Tamanho da fonte do placeholder */
     color: var(--blue-05); /* Cor do placeholder */
     opacity: 0.5; /* Transparência do placeholder */
@@ -289,7 +289,7 @@ label[for="chave-pix"] {
 
 /* Botão padrão */
 button {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Helvetica', sans-serif;
     padding: 18px 28px; /* Ajusta o tamanho do botão */
     background-color: var(--byzantine-blue);
     color: var(--white);

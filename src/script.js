@@ -88,6 +88,9 @@ function calcularReembolso() {
 
         // Calcula o valor a ser reembolsado e soma
         totalReembolso += fies + estudante - mensalidade - outrosDebitos - seguroTaxa + outrosCreditos;
+
+        // Aplica a cor de texto nas células com base no tipo (débito ou crédito)
+        aplicarCorTabela(linha, mensalidade, seguroTaxa, outrosDebitos, fies, estudante, outrosCreditos);
     });
 
     // Atualiza o valor total na página
@@ -671,3 +674,25 @@ function atualizarMesesTabela() {
     });
 }
 
+function aplicarCorTabela(linha, mensalidade, seguroTaxa, outrosDebitos, fies, estudante, outrosCreditos) {
+    // Função para aplicar a cor de texto de acordo com o tipo de valor (débito ou crédito)
+    function aplicarCor(campo, valor, tipo) {
+        // Débito (vermelho)
+        if (tipo === 'debito') {
+            campo.style.color = "#EE6A43";  // Vermelho para débitos
+        }
+        // Crédito (azul)
+        else if (tipo === 'credito') {
+            campo.style.color = "#0880cf";  // Azul para créditos
+        }
+    }
+
+    // Aplica as cores nas células da tabela (apenas no texto)
+    aplicarCor(linha.querySelector('td:nth-child(2) input'), mensalidade, 'debito');  // Valor da mensalidade (débito)
+    aplicarCor(linha.querySelector('td:nth-child(5) input'), seguroTaxa, 'debito');  // Seguro prestamista + taxa administrativa (débito)
+    aplicarCor(linha.querySelector('td:nth-child(6) input'), outrosDebitos, 'debito');  // Outros débitos (débito)
+
+    aplicarCor(linha.querySelector('td:nth-child(3) input'), fies, 'credito');  // Valor pago pelo FIES (crédito)
+    aplicarCor(linha.querySelector('td:nth-child(4) input'), estudante, 'credito');  // Valor pago pelo estudante (crédito)
+    aplicarCor(linha.querySelector('td:nth-child(7) input'), outrosCreditos, 'credito');  // Outros créditos (crédito)
+}
