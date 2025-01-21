@@ -489,13 +489,3 @@ table tr:nth-child(even) {
     background-color: #ffffff; /* Cor branca */
 }
 
-
-/* Cor vermelha */
-.red-filled {
-    background-color: red;
-}
-
-/* Cor azul */
-.blue-filled {
-    background-color: blue;
-}
