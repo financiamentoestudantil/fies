@@ -671,3 +671,28 @@ function atualizarMesesTabela() {
     });
 }
 
+// Função para verificar se o campo foi preenchido
+function verificarPreenchimento() {
+    // Selecione todos os inputs na tabela
+    let inputs = document.querySelectorAll('table input[type="text"]');
+    
+    // Iterar sobre cada input
+    inputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            // Verifica se o campo foi preenchido
+            if (input.value.trim() !== '') {
+                // Se preenchido, aplica a cor azul
+                input.classList.add('blue-filled');
+                input.classList.remove('red-filled');
+            } else {
+                // Se vazio, aplica a cor vermelha
+                input.classList.add('red-filled');
+                input.classList.remove('blue-filled');
+            }
+        });
+    });
+}
+
+// Chama a função quando a página carregar
+window.onload = verificarPreenchimento;
+
