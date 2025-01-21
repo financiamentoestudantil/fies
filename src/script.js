@@ -370,7 +370,7 @@ function exportarRequerimento() {
     doc.setTextColor(corTextoSecundario); // Cor secundária
 
     // Adicionar campo de Assinatura do Estudante
-    doc.text("Declara, sob as penas da lei, serem verdadeiras as informações acima.", 20, doc.lastAutoTable.finalY + 40);
+    doc.text("Declaro, sob as penas da lei, serem verdadeiras as informações acima.", 20, doc.lastAutoTable.finalY + 40);
     doc.text("Data:", 20, doc.lastAutoTable.finalY + 45);
     doc.text(dataFormatada, 30, doc.lastAutoTable.finalY + 45);
     doc.text("_______________________________________________________________", 20, doc.lastAutoTable.finalY + 52);
