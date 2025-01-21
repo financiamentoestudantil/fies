@@ -128,22 +128,28 @@ function exportarRequerimento() {
     const corTextoCelas = "#141A3C"; // Cor para o texto das células da tabela
     const corDebito = "#EE6A43"; // Cor para débitos
     const corCredito = "#0880cf"; // Cor para créditos
-
-    // Títulos gerais em Negrito
+    const corLinhaPar = [240, 248, 255]; // Azul claro para linhas pares
+    const corLinhaImpar = [255, 255, 255]; // Branco para linhas ímpares
+    
+    // Adicionar o título do documento sobre a barra
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(corTituloPrincipal); // Aplica a cor principal
-    doc.setFontSize(18);
-    doc.text("Requerimento de Reembolso", 105, 15, null, null, 'center');
+    doc.setTextColor(corTituloPrincipal); // Cor para o título
+    doc.setFontSize(16);
+    doc.text("Requerimento de Reembolso", 20, 8); // Título
 
+    // Adicionar subtítulo abaixo da barra
     doc.setFontSize(10);
-    doc.setTextColor(corTextoSecundario); // Aplica a cor secundária
-    doc.text("Fundo de Financiamento Estudantil - FIES", 105, 22, null, null, 'center');
+    doc.setTextColor(corTituloPrincipal); // Cor do subtítulo
+    doc.text("Fundo de Financiamento Estudantil - Fies", 20, 13); // Subtítulo
+
+    // Inicializar a posição para o início da Seção 1
+    let startY = 22; // Início da Seção 1
 
     // Seção 1 - Qualificação
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(corTituloPrincipal); // Cor para o título
+    doc.setTextColor(corTituloPrincipal);
     doc.setFontSize(12);
-    doc.text("1 - Qualificação", 20, 35);
+    doc.text("1 - Dados do(a) Estudante", 20, startY);
 
     // Dados do formulário
     const nome = document.getElementById("nome").value || "Não informado";
@@ -153,11 +159,11 @@ function exportarRequerimento() {
     const telefone = document.getElementById("telefone").value || "Não informado";
     const email = document.getElementById("email").value || "Não informado";
 
-    let startY = 45;
+    startY += 7; // Ajustar a posição Y após o título da seção
     const fields = [
         { label: "Nome", value: nome },
         { label: "CPF", value: cpf },
-        { label: "Num Matrícula", value: numero_matricula },
+        { label: "Nº Matrícula (RA)", value: numero_matricula },
         { label: "Curso", value: curso },
         { label: "Telefone", value: telefone },
         { label: "E-mail", value: email },
@@ -167,56 +173,107 @@ function exportarRequerimento() {
         // Título em Bold com cor secundária
         doc.setFont("helvetica", "bold");
         doc.setFontSize(10);
-        doc.setTextColor(corTextoSecundario); // Cor secundária
-        doc.text(`${field.label}:`, 20, startY + index * 7);
+        doc.setTextColor(corTextoSecundario);
+        doc.text(`${field.label}:`, 20, startY + index * 5); // Espaçamento menor entre os campos
 
         // Valor em Normal
         doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
-        doc.text(`${field.value}`, 50, startY + index * 7);
+        doc.text(`${field.value}`, 70, startY + index * 5); // Espaçamento menor entre os campos
     });
 
-    // Seção 2 - Justificativa do pedido
-    startY = startY + fields.length * 7 + 10;
+    startY += fields.length * 5 + 5; // Ajusta a posição Y para a próxima seção com um espaçamento menor
+
+    // Seção 2 - Dados da Instituição de Ensino
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(corTituloPrincipal);
+    doc.setFontSize(12);
+    doc.text("2 - Dados da Instituição de Ensino", 20, startY);
+
+    // Dados do formulário
+    const instituicao = document.getElementById("instituicao").value || "Não informado";
+    const localOferta = document.getElementById("localOferta").value || "Não informado";
+
+    startY += 7; // Ajusta a posição Y após o título da seção
+    const fields_instituicao = [
+        { label: "Instituição de Ensino", value: instituicao },
+        { label: "Local da oferta (Campus)", value: localOferta },
+    ];
+
+    fields_instituicao.forEach((field, index) => {
+        // Título em Bold com cor secundária
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(10);
+        doc.setTextColor(corTextoSecundario);
+        doc.text(`${field.label}:`, 20, startY + index * 5); // Espaçamento menor entre os campos
+
+        // Valor em Normal
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.text(`${field.value}`, 70, startY + index * 5); // Espaçamento menor entre os campos
+    });
+
+    startY += fields_instituicao.length * 5 + 5; // Ajusta a posição Y para a próxima seção com um espaçamento menor
+
+    // Seção 3 - Justificativa do pedido
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
-    doc.setTextColor(corTituloPrincipal); // Cor para o título
-    doc.text("2 - Justificativa do pedido", 20, startY);
+    doc.setTextColor(corTituloPrincipal);
+    doc.text("3 - Justificativa do pedido", 20, startY);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.setTextColor(corTextoSecundario); // Cor secundária
-    const justificativa = "Com fundamento na Portaria Normativa MEC nº 209, de 07 de março de 2018, artigo 58, § 6º...";
-    doc.text(justificativa, 20, startY + 7, { maxWidth: 170 });
+    doc.setTextColor(corTextoSecundario);
 
-    // Seção 3 - Demonstrativo financeiro
-    startY = startY + 20; // Ajustar Y após a justificativa
+    const texto1 = "Com fundamento no artigo 58, §6º, da Portaria Normativa MEC nº 209, de 7 de março de 2018, solicito o reembolso dos valores recebidos pela Instituição de Ensino, correspondentes aos repasses do Fies, referentes às parcelas da semestralidade já quitadas por mim.";
+    const texto2 = "Requeiro que a devolução seja realizada em moeda corrente no prazo máximo legal de 15 (quinze) dias.";
+    const texto3 = "Anexo os seguintes documentos que comprovam:";
+    const texto4 = "    1. O pagamento das mensalidades efetuado pelo(a) estudante;";
+    const texto5 = "    2. A contratação do Fies e os respectivos repasses realizados à instituição de ensino.";
+    const texto6 = "Com base nos fatos e na legislação vigente, solicita-se a devolução dos valores, observando os prazos regulamentares estabelecidos pelo Ministério da Educação.";
+
+    // Adicionar o texto no PDF com quebras de linha
+    doc.text(texto1, 20, startY + 6, { maxWidth: 170 });
+    startY += 15; // Aumenta o espaço após o primeiro parágrafo
+
+    doc.text(texto2, 20, startY + 6, { maxWidth: 170 });
+    startY += 7; // Espaço para o próximo parágrafo
+
+    doc.text(texto3, 20, startY + 6, { maxWidth: 170 });
+    startY += 7; // Espaço para o próximo parágrafo
+
+    doc.text(texto4, 20, startY + 6, { maxWidth: 170 });
+    startY += 7; // Espaço para o próximo parágrafo
+
+    doc.text(texto5, 20, startY + 6, { maxWidth: 170 });
+    startY += 7; // Espaço para o próximo parágrafo
+
+    doc.text(texto6, 20, startY + 6, { maxWidth: 170 });
+    startY += 7; // Espaço para o próximo parágrafo
+
+    // Seção 4 - Demonstrativo financeiro
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
-    doc.setTextColor(corTituloPrincipal); // Cor para o título
-    doc.text("3 - Demonstrativo financeiro", 20, startY);
+    doc.setTextColor(corTituloPrincipal);
+    startY += 10; // Ajusta a posição Y antes do título para não sobrepor
+    doc.text("4 - Demonstrativo financeiro", 20, startY);
 
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(corTextoSecundario); // Cor secundária
-    const demonstrativo = "Insira os dados na tabela abaixo e clique em 'Calcular reembolso'. Após o cálculo, clique em 'Exportar requerimento' para gerar o documento.";
-    doc.text(demonstrativo, 20, startY + 7, { maxWidth: 170 });
+    startY += 6; // Ajustar Y após o título
 
     // Adicionar tabela de valores
-    startY = startY + 20; // Ajustar Y após o demonstrativo
     doc.autoTable({
         head: [
             [
                 'Mês/Ano',
                 'Valor da mensalidade',
-                'Valor pago pelo FIES',
+                'Valor pago pelo Fies',
                 'Valor pago pelo estudante',
-                'Seguro Prestamista + Taxa Administrativa (Caixa)',
-                'Outros Débitos',
-                'Outros Créditos',
+                'Seguro prestamista + taxa administrativa (Caixa)',
+                'Outros débitos',
+                'Outros créditos',
             ],
         ],
-        body: Array.from(document.querySelectorAll("table tbody tr")).map(linha => {
+        body: Array.from(document.querySelectorAll("table tbody tr")).map((linha, index) => {
             const mensalidade = linha.querySelector('td:nth-child(2) input').value || '0,00';
             const fies = linha.querySelector('td:nth-child(3) input').value || '0,00';
             const estudante = linha.querySelector('td:nth-child(4) input').value || '0,00';
@@ -224,14 +281,17 @@ function exportarRequerimento() {
             const outrosDebitos = linha.querySelector('td:nth-child(6) input').value || '0,00';
             const outrosCreditos = linha.querySelector('td:nth-child(7) input').value || '0,00';
 
+            // Definindo a cor de fundo das linhas (alternando entre azul claro e branco)
+            const fillColor = index % 2 === 0 ? corLinhaPar : corLinhaImpar;
+
             return [
-                linha.querySelector('td:nth-child(1) select').value || "-",
-                { content: mensalidade, styles: { textColor: corDebito } },
-                { content: fies, styles: { textColor: corCredito } },
-                { content: estudante, styles: { textColor: corCredito } },
-                { content: seguroTaxa, styles: { textColor: corDebito } },
-                { content: outrosDebitos, styles: { textColor: corDebito } },
-                { content: outrosCreditos, styles: { textColor: corCredito } },
+                { content: linha.querySelector('td:nth-child(1) select').value || "-", styles: { fillColor } },
+                { content: mensalidade, styles: { textColor: corDebito, fillColor } },
+                { content: fies, styles: { textColor: corCredito, fillColor } },
+                { content: estudante, styles: { textColor: corCredito, fillColor } },
+                { content: seguroTaxa, styles: { textColor: corDebito, fillColor } },
+                { content: outrosDebitos, styles: { textColor: corDebito, fillColor } },
+                { content: outrosCreditos, styles: { textColor: corCredito, fillColor } },
             ];
         }),
         startY: startY,
@@ -254,7 +314,7 @@ function exportarRequerimento() {
             1: { cellWidth: 27 },
             2: { cellWidth: 27 },
             3: { cellWidth: 27 },
-            4: { cellWidth: 27 },
+            4: { cellWidth: 28 },
             5: { cellWidth: 27 },
             6: { cellWidth: 27 },
         },
@@ -265,21 +325,65 @@ function exportarRequerimento() {
     doc.setFontSize(12);
     doc.setTextColor(corTituloPrincipal); // Cor para o título principal
     const totalReembolso = document.getElementById("totalReembolso").textContent || "R$ 0,00";
-    doc.text(`Valor Total a Ser Reembolsado: ${totalReembolso}`, 20, doc.lastAutoTable.finalY + 10);
+    doc.text(`Valor total a ser reembolsado: ${totalReembolso}`, 20, doc.lastAutoTable.finalY + 10);
 
     // Detalhes adicionais com cor secundária
     const outrosDetalhes = document.getElementById("outros-detalhes").value || "Nenhum detalhe adicional informado.";
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(corTextoSecundario); // Cor secundária
-    doc.text("Detalhes adicionais:", 20, doc.lastAutoTable.finalY + 20);
-    doc.setFontSize(9);
-    doc.text(outrosDetalhes, 20, doc.lastAutoTable.finalY + 30, { maxWidth: 170 });
+    doc.text("Detalhes adicionais:", 20, doc.lastAutoTable.finalY + 18);
+    doc.setFontSize(10);
+    doc.text(outrosDetalhes, 20, doc.lastAutoTable.finalY + 23, { maxWidth: 170 });
+    
+    // Chave Pix com cor secundária
+    const chavepix = document.getElementById("chave-pix").value || "Nenhuma chave informada.";
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(corTextoSecundario); // Cor secundária
+    doc.text("Autorizo que o ressarcimento seja realizado por meio da chave Pix:", 20, doc.lastAutoTable.finalY + 32);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text(chavepix, 135, doc.lastAutoTable.finalY + 32, { maxWidth: 170 });
+    
+    // Adicionar campo de Data
+    const dataAtual = new Date();
+    const diasDaSemana = [
+        "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", 
+        "Quinta-feira", "Sexta-feira", "Sábado"
+    ];
+    const meses = [
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ];
 
+    // Obter a data no formato por extenso: "19 de Janeiro de 2025"
+    const dia = dataAtual.getDate();
+    const mes = meses[dataAtual.getMonth()];
+    const ano = dataAtual.getFullYear();
+
+    // Montar a data por extenso
+    const dataFormatada = `${dia} de ${mes} de ${ano}`;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(corTextoSecundario); // Cor secundária
+
+    // Adicionar campo de Assinatura do Estudante
+    doc.text("Declara, sob as penas da lei, serem verdadeiras as informações acima.", 20, doc.lastAutoTable.finalY + 40);
+    doc.text("Data:", 20, doc.lastAutoTable.finalY + 45);
+    doc.text(dataFormatada, 30, doc.lastAutoTable.finalY + 45);
+    doc.text("_______________________________________________________________", 20, doc.lastAutoTable.finalY + 52);
+    doc.text("Assinatura do(a) Estudante", 20, doc.lastAutoTable.finalY + 57);
+   
+
+    // Criar o nome do arquivo com o nome do usuário
+    const nomeArquivo = `Profies - Requerimento de Reembolso - ${nome}.pdf`;
+    
     // Salvar o PDF
-    doc.save('Profies - Requerimento Reembolso.pdf');
+    doc.save(nomeArquivo)
 }
-        
+
     
 // Função para aplicar a máscara no CPF
 function mascaraCPF(input) {

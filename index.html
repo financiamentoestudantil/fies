@@ -10,17 +10,17 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="src/assets/Ativo 1@4x.png" alt="Logo">
+            <img src="src/assets/Ativo 1@4x.png" alt="Logo" align>
         </div>
         <h1>Requerimento de Reembolso</h1>
-        <p class="subheading">Fundo de Financiamento Estudantil - FIES</p>
+        <p class="subheading">Fundo de Financiamento Estudantil - Fies</p>
 
         <!-- Seção 1 - Qualificação -->
         <div class="section">
-            <h2>1 - Qualificação</h2>
+            <h2>1 - Dados do(a) Estudante</h2>
             <form id="reembolsoForm">
                 <div class="form-group">
-                    <label for="nome">Nome do estudante:</label>
+                    <label for="nome">Nome do(a) estudante:</label>
                     <input type="text" id="nome" autocomplete="name" required>
                 </div>
                 <div class="form-group">
@@ -47,16 +47,40 @@
             </form>
         </div>
 
-        <!-- Seção 2 - Justificativa -->
+        <!-- Seção 2 - Dados da Instituição Requerida -->
         <div class="section">
-            <h2>2 - Justificativa do pedido</h2>
-            <p>Com fundamento na Portaria Normativa MEC nº 209, de 07 de março de 2018, artigo 58, § 6º...</p>
+            <h2>2 - Dados da Instituição de Ensino</h2>
+            <form id="instituicaoForm">
+                <div class="form-group">
+                    <label for="instituicao">Instituição de Ensino:</label>
+                    <input type="text" id="instituicao" autocomplete="instituicao" required>
+                </div>
+                <div class="form-group">
+                    <label for="localOferta">Local de oferta (campus):</label>
+                    <input type="text" id="localOferta" autocomplete="localOferta" required>
+                </div>
+            </form>
         </div>
 
-        <!-- Seção 3 - Demonstrativo financeiro -->
+        <!-- Seção 3 - Justificativa -->
         <div class="section">
-            <h2>3 - Demonstrativo financeiro</h2>
-            <p>Insira os dados na tabela abaixo e clique em "Calcular reembolso". Após o cálculo, clique em "Exportar requerimento" para gerar o documento.</p>
+            <h2>3 - Justificativa do pedido</h2>
+            <p>Com fundamento no artigo 58, §6º, da Portaria Normativa MEC nº 209, de 7 de março de 2018, solicito o reembolso dos valores recebidos pela Instituição de Ensino, correspondentes aos repasses do Fies, referentes às parcelas da semestralidade já quitadas por mim.
+                <br><br>
+                Requeiro que a devolução seja realizada em moeda corrente no prazo máximo legal de 15 (quinze) dias.
+                <br><br>
+                1.	O pagamento das mensalidades efetuado pelo(a) estudante;
+                <br>
+                2.	A contratação do Fies e os respectivos repasses realizados à instituição de ensino.
+                <br><br>
+                Com base nos fatos e na legislação vigente, solicita-se a devolução dos valores, observando os prazos regulamentares estabelecidos pelo Ministério da Educação.
+            </p>
+        </div>
+
+        <!-- Seção 4 - Demonstrativo financeiro -->
+        <div class="section">
+            <h2>4 - Demonstrativo financeiro</h2>
+            <p>Insira os dados na tabela abaixo e clique em "Exportar requerimento" para gerar o documento.</p>
 
             <div class="form-group">
                 <label for="semestre">Semestre:</label>
@@ -70,11 +94,11 @@
                     <tr>
                         <th>Mês/Ano</th>
                         <th>Valor da mensalidade</th>
-                        <th>Valor pago pelo FIES</th>
+                        <th>Valor pago pelo Fies</th>
                         <th>Valor pago pelo estudante</th>
-                        <th>Seguro Prestamista + Taxa Administrativa (Caixa)</th>
-                        <th>Outros Débitos</th>
-                        <th>Outros Créditos</th>
+                        <th>Seguro prestamista + taxa administrativa (Caixa)</th>
+                        <th>Outros débitos</th>
+                        <th>Outros créditos</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -138,7 +162,12 @@
             <!-- Campo de texto para especificar créditos e débitos -->
             <div class="form-group">
                 <label for="outros-detalhes">Detalhes adicionais:</label>
-                <textarea id="outros-detalhes" placeholder="Especifique, por exemplo, outros débitos e outros créditos. '" rows="3"></textarea>
+                <textarea id="outros-detalhes" placeholder="Especifique, por exemplo, outros débitos e outros créditos." rows="2"></textarea>
+            </div>
+            <!-- Campo de texto para especificar chave PIX -->
+            <div class="form-group">
+                <label for="chave-pix">Autorizo que o ressarcimento seja realizado por meio da chave Pix:</label>
+                <textarea id="chave-pix" placeholder="Digite a chave PIX." rows="1"></textarea>
             </div>
             <div class="result">
                 <div id="totalContainer" class="result-card positive">
