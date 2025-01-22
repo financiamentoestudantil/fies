@@ -229,11 +229,11 @@ function exportarRequerimento() {
     doc.setTextColor(corTextoSecundario);
 
     const texto1 = "Com base no artigo 58, §6º, da Portaria Normativa MEC nº 209, de 7 de março de 2018, solicita-se o ressarcimento dos valores recebidos pela Instituição de Ensino, correspondentes aos repasses do Fies relativos às parcelas da semestralidade já quitadas pelo(a) estudante.";
-    const texto2 = "Requeiro que a devolução seja realizada em moeda corrente no prazo máximo legal de 15 (quinze) dias.";
+    const texto2 = "Requer-se que a devolução seja efetuada em moeda corrente no prazo legal máximo de 15 (quinze) dias, contados a partir da notificação formal deste pedido.";
     const texto3 = "Anexo os seguintes documentos que comprovam:";
-    const texto4 = "    1. O pagamento das mensalidades efetuado pelo(a) estudante;";
-    const texto5 = "    2. A contratação do Fies e os respectivos repasses realizados à instituição de ensino.";
-    const texto6 = "Com base nos fatos e na legislação vigente, solicita-se a devolução dos valores, observando os prazos regulamentares estabelecidos pelo Ministério da Educação.";
+    const texto4 = "Os documentos anexos comprovam o pagamento das mensalidades realizado pelo(a) estudante, a contratação do Fies e os repasses efetuados à instituição de ensino.";
+    const texto5 = "";
+    const texto6 = "";
 
     // Adicionar o texto no PDF com quebras de linha
     doc.text(texto1, 20, startY + 6, { maxWidth: 170 });
