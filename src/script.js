@@ -230,24 +230,17 @@ function exportarRequerimento() {
 
     const texto1 = "Com base no artigo 58, §6º, da Portaria Normativa MEC nº 209, de 7 de março de 2018, solicita-se o ressarcimento dos valores recebidos pela Instituição de Ensino, correspondentes aos repasses do Fies relativos às parcelas da semestralidade já quitadas pelo(a) estudante.";
     const texto2 = "Requer-se que a devolução seja efetuada em moeda corrente no prazo legal máximo de 15 (quinze) dias, contados a partir da notificação formal deste pedido.";
-    const texto3 = "Anexo os seguintes documentos que comprovam:";
-    const texto4 = "Os documentos anexos comprovam o pagamento das mensalidades realizado pelo(a) estudante, a contratação do Fies e os repasses efetuados à instituição de ensino.";
+    const texto3 = "Os documentos anexos comprovam o pagamento das mensalidades realizado pelo(a) estudante, a contratação do Fies e os repasses efetuados à instituição de ensino.";
 
     // Adicionar o texto no PDF com quebras de linha
     doc.text(texto1, 20, startY + 6, { maxWidth: 170 });
     startY += 15; // Aumenta o espaço após o primeiro parágrafo
 
     doc.text(texto2, 20, startY + 6, { maxWidth: 170 });
-    startY += 7; // Espaço para o próximo parágrafo
+    startY += 12; // Espaço para o próximo parágrafo
 
-    // doc.text(texto3, 20, startY + 6, { maxWidth: 170 });
-    startY += 7; // Espaço para o próximo parágrafo
-
-    doc.text(texto4, 20, startY + 6, { maxWidth: 170 });
-    startY += 7; // Espaço para o próximo parágrafo
-
-    // doc.text(texto5, 20, startY + 6, { maxWidth: 170 });
-    startY += 7; // Espaço para o próximo parágrafo
+    doc.text(texto3, 20, startY + 6, { maxWidth: 170 });
+    startY += 10; // Espaço para o próximo parágrafo
 
     // Seção 4 - Demonstrativo financeiro
     doc.setFont("helvetica", "bold");
@@ -331,7 +324,7 @@ function exportarRequerimento() {
     doc.setFontSize(10);
     doc.setTextColor(corTextoSecundario); // Cor secundária
     doc.text("Detalhes adicionais:", 20, doc.lastAutoTable.finalY + 18);
-    doc.setFontSize(10);
+    doc.setFontSize(8);
     doc.text(outrosDetalhes, 20, doc.lastAutoTable.finalY + 23, { maxWidth: 170 });
     
     // Chave Pix com cor secundária
@@ -339,10 +332,10 @@ function exportarRequerimento() {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
     doc.setTextColor(corTextoSecundario); // Cor secundária
-    doc.text("Autorizo que o ressarcimento seja realizado por meio da chave Pix:", 20, doc.lastAutoTable.finalY + 32);
+    doc.text("Autorizo que o ressarcimento seja realizado por meio da chave Pix:", 20, doc.lastAutoTable.finalY + 43);
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.text(chavepix, 135, doc.lastAutoTable.finalY + 32, { maxWidth: 170 });
+    doc.setFontSize(8);
+    doc.text(chavepix, 135, doc.lastAutoTable.finalY + 43, { maxWidth: 170 });
     
     // Adicionar campo de Data
     const dataAtual = new Date();
@@ -368,11 +361,11 @@ function exportarRequerimento() {
     doc.setTextColor(corTextoSecundario); // Cor secundária
 
     // Adicionar campo de Assinatura do Estudante
-    doc.text("Declaro, sob as penas da lei, serem verdadeiras as informações acima.", 20, doc.lastAutoTable.finalY + 40);
-    doc.text("Data:", 20, doc.lastAutoTable.finalY + 45);
-    doc.text(dataFormatada, 30, doc.lastAutoTable.finalY + 45);
-    doc.text("_______________________________________________________________", 20, doc.lastAutoTable.finalY + 52);
-    doc.text("Assinatura do(a) Estudante", 20, doc.lastAutoTable.finalY + 57);
+    doc.text("Declaro, sob as penas da lei, serem verdadeiras as informações acima.", 20, doc.lastAutoTable.finalY + 50);
+    doc.text("Data:", 20, doc.lastAutoTable.finalY + 55);
+    doc.text(dataFormatada, 30, doc.lastAutoTable.finalY + 55);
+    doc.text("_______________________________________________________________", 20, doc.lastAutoTable.finalY + 62);
+    doc.text("Assinatura do(a) Estudante", 20, doc.lastAutoTable.finalY + 67);
    
 
     // Criar o nome do arquivo com o nome do usuário

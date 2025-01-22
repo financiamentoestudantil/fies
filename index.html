@@ -31,7 +31,7 @@
             <form id="reembolsoForm">
                 <div class="form-group">
                     <label for="nome">Nome do(a) Estudante</label>
-                    <input type="text" id="nome" autocomplete="name" required>
+                    <input type="text" maxlength="60" id="nome" autocomplete="name" required>
                 </div>
                 <div class="form-group">
                     <label for="cpf">CPF</label>
@@ -39,11 +39,11 @@
                 </div>
                 <div class="form-group">
                     <label for="numero-matricula">Número da Matrícula (RA)</label>
-                    <input type="text" id="numero-matricula" required>
+                    <input type="text" maxlength="60" id="numero-matricula" required>
                 </div>
                 <div class="form-group">
                     <label for="curso">Curso</label>
-                    <input type="text" id="curso" required>
+                    <input type="text" maxlength="60" id="curso" required>
                 </div>
                 <div class="form-group">
                     <label for="telefone">Telefone</label>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" autocomplete="email" required>
+                    <input type="email" maxlength="40" id="email" autocomplete="email" required>
                     <span id="msgemail"></span> <!-- Onde a mensagem de validação será exibida -->
                 </div>
             </form>
@@ -63,11 +63,11 @@
             <form id="instituicaoForm">
                 <div class="form-group">
                     <label for="instituicao">Nome da Instituição de Ensino Superior</label>
-                    <input type="text" id="instituicao" autocomplete="instituicao" required>
+                    <input type="text" maxlength="60" id="instituicao" autocomplete="instituicao" required>
                 </div>
                 <div class="form-group">
                     <label for="localOferta">Local de Oferta (Campus)</label>
-                    <input type="text" id="localOferta" autocomplete="localOferta" required>
+                    <input type="text" maxlength="60" id="localOferta" autocomplete="localOferta" required>
                 </div>
             </form>
         </div>
@@ -169,12 +169,12 @@
             <!-- Campo de texto para especificar créditos e débitos -->
             <div class="form-group">
                 <label for="outros-detalhes">Detalhes adicionais (opcional)</label>
-                <textarea id="outros-detalhes" maxlength="200" placeholder="Informe, se necessário, detalhes sobre os campos 'Outros débitos' ou 'Outros créditos', ou quaisquer informações adicionais que possam complementar o pedido de ressarcimento." rows="2"></textarea>
+                <textarea id="outros-detalhes" maxlength="500" placeholder="Informe, se necessário, detalhes sobre os campos 'Outros débitos' ou 'Outros créditos', ou quaisquer informações adicionais que possam complementar o pedido de ressarcimento." rows="2"></textarea>
             </div>
             <!-- Campo de texto para especificar chave PIX -->
             <div class="form-group">
                 <label for="chave-pix">Autorizo o ressarcimento por meio da chave Pix</label>
-                <textarea id="chave-pix" placeholder="Informe uma chave Pix válida para o ressarcimento." rows="1"></textarea>
+                <textarea id="chave-pix" maxlength="40" placeholder="Informe uma chave Pix válida para o ressarcimento." rows="1"></textarea>
             </div>
             <div class="result">
                 <div id="totalContainer" class="result-card positive">
