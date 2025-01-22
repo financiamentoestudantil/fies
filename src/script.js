@@ -375,7 +375,7 @@ function exportarRequerimento() {
    
 
     // Criar o nome do arquivo com o nome do usuário
-    const nomeArquivo = `Profies - Requerimento de Reembolso - ${nome}.pdf`;
+    const nomeArquivo = `Requerimento de Reembolso - ${nome}.pdf`;
     
     // Salvar o PDF
     doc.save(nomeArquivo)
