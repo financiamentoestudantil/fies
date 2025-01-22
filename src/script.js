@@ -228,7 +228,7 @@ function exportarRequerimento() {
     doc.setFontSize(10);
     doc.setTextColor(corTextoSecundario);
 
-    const texto1 = "Com fundamento no artigo 58, §6º, da Portaria Normativa MEC nº 209, de 7 de março de 2018, solicito o reembolso dos valores recebidos pela Instituição de Ensino, correspondentes aos repasses do Fies, referentes às parcelas da semestralidade já quitadas por mim.";
+    const texto1 = "Com base no artigo 58, §6º, da Portaria Normativa MEC nº 209, de 7 de março de 2018, solicita-se o ressarcimento dos valores recebidos pela Instituição de Ensino, correspondentes aos repasses do Fies relativos às parcelas da semestralidade já quitadas pelo(a) estudante.";
     const texto2 = "Requeiro que a devolução seja realizada em moeda corrente no prazo máximo legal de 15 (quinze) dias.";
     const texto3 = "Anexo os seguintes documentos que comprovam:";
     const texto4 = "    1. O pagamento das mensalidades efetuado pelo(a) estudante;";
