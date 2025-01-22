@@ -246,6 +246,9 @@ function exportarRequerimento() {
     doc.text(texto4, 20, startY + 6, { maxWidth: 170 });
     startY += 7; // Espaço para o próximo parágrafo
 
+    doc.text(texto5, 20, startY + 6, { maxWidth: 170 });
+    startY += 7; // Espaço para o próximo parágrafo
+
     // Seção 4 - Demonstrativo financeiro
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
