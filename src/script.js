@@ -232,8 +232,6 @@ function exportarRequerimento() {
     const texto2 = "Requer-se que a devolução seja efetuada em moeda corrente no prazo legal máximo de 15 (quinze) dias, contados a partir da notificação formal deste pedido.";
     const texto3 = "Anexo os seguintes documentos que comprovam:";
     const texto4 = "Os documentos anexos comprovam o pagamento das mensalidades realizado pelo(a) estudante, a contratação do Fies e os repasses efetuados à instituição de ensino.";
-    const texto5 = "";
-    const texto6 = "";
 
     // Adicionar o texto no PDF com quebras de linha
     doc.text(texto1, 20, startY + 6, { maxWidth: 170 });
