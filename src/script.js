@@ -584,27 +584,37 @@ function preencherSemestres() {
     const anoAtual = dataAtual.getFullYear();
     const mesAtual = dataAtual.getMonth() + 1; // Janeiro é 0, adicionamos 1
 
-    // Determinar os semestres
-    let semestres = [];
-
-    // Adiciona o semestre atual
+    // Determinar o semestre atual
+    let semestreAtual, anoSemestreAtual;
     if (mesAtual <= 6) {
         // Estamos no 1º semestre
-        semestres.push(`01/${anoAtual}`);
+        semestreAtual = 1;
+        anoSemestreAtual = anoAtual;
     } else {
         // Estamos no 2º semestre
-        semestres.push(`02/${anoAtual}`);
+        semestreAtual = 2;
+        anoSemestreAtual = anoAtual;
     }
 
-    // Adiciona os dois semestres anteriores
-    semestres.push(`02/${anoAtual - 1}`, `01/${anoAtual - 1}`);
+    // Gerar os últimos 3 semestres (18 meses) retroativamente
+    let semestres = [];
+    let semestre = semestreAtual;
+    let ano = anoSemestreAtual;
 
-    // Ordenar em ordem decrescente
-    semestres.sort((a, b) => {
-        const [semestreA, anoA] = a.split("/");
-        const [semestreB, anoB] = b.split("/");
-        return parseInt(anoB) - parseInt(anoA) || parseInt(semestreB) - parseInt(semestreA);
-    });
+    for (let i = 0; i < 3; i++) {
+        // Adicionar o semestre atual à lista
+        semestres.push(`${semestre.toString().padStart(2, '0')}/${ano}`);
+        
+        // Calcular o semestre anterior
+        if (semestre === 1) {
+            // Se estamos no 1º semestre, o anterior é o 2º semestre do ano anterior
+            semestre = 2;
+            ano = ano - 1;
+        } else {
+            // Se estamos no 2º semestre, o anterior é o 1º semestre do mesmo ano
+            semestre = 1;
+        }
+    }
 
     // Limpar opções existentes
     selectSemestre.innerHTML = "";
@@ -618,7 +628,7 @@ function preencherSemestres() {
     placeholder.hidden = true; // Esconde a opção no menu suspenso
     selectSemestre.appendChild(placeholder);
 
-    // Adicionar os semestres calculados
+    // Adicionar os semestres calculados (já estão na ordem correta - mais recente para mais antigo)
     semestres.forEach((semestre) => {
         const option = document.createElement("option");
         option.value = semestre;
