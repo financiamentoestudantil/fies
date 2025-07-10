@@ -596,12 +596,12 @@ function preencherSemestres() {
         anoSemestreAtual = anoAtual;
     }
 
-    // Gerar os últimos 3 semestres (18 meses) retroativamente
+    // Gerar o semestre atual e os 3 semestres anteriores (4 semestres no total)
     let semestres = [];
     let semestre = semestreAtual;
     let ano = anoSemestreAtual;
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
         // Adicionar o semestre atual à lista
         semestres.push(`${semestre.toString().padStart(2, '0')}/${ano}`);
         
