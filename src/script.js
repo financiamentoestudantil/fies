@@ -88,9 +88,6 @@ function calcularReembolso() {
 
         // Calcula o valor a ser reembolsado e soma
         totalReembolso += fies + estudante - mensalidade - outrosDebitos - seguroTaxa + outrosCreditos;
-
-        // Aplica a cor de texto nas células com base no tipo (débito ou crédito)
-        aplicarCorTabela(linha, mensalidade, seguroTaxa, outrosDebitos, fies, estudante, outrosCreditos);
     });
 
     // Atualiza o valor total na página
@@ -228,19 +225,31 @@ function exportarRequerimento() {
     doc.setFontSize(10);
     doc.setTextColor(corTextoSecundario);
 
-    const texto1 = "Com base no artigo 58, §6º, da Portaria Normativa MEC nº 209, de 7 de março de 2018, solicita-se o ressarcimento dos valores recebidos pela Instituição de Ensino, correspondentes aos repasses do Fies relativos às parcelas da semestralidade já quitadas pelo(a) estudante.";
-    const texto2 = "Requer-se que a devolução seja efetuada em moeda corrente no prazo legal máximo de 15 (quinze) dias, contados a partir da notificação formal deste pedido.";
-    const texto3 = "Os documentos anexos comprovam o pagamento das mensalidades realizado pelo(a) estudante, a contratação do Fies e os repasses efetuados à instituição de ensino.";
+    const texto1 = "Com fundamento no artigo 58, §6º, da Portaria Normativa MEC nº 209, de 7 de março de 2018, solicito o reembolso dos valores recebidos pela Instituição de Ensino, correspondentes aos repasses do Fies, referentes às parcelas da semestralidade já quitadas por mim.";
+    const texto2 = "Requeiro que a devolução seja realizada em moeda corrente no prazo máximo legal de 15 (quinze) dias.";
+    const texto3 = "Anexo os seguintes documentos que comprovam:";
+    const texto4 = "    1. O pagamento das mensalidades efetuado pelo(a) estudante;";
+    const texto5 = "    2. A contratação do Fies e os respectivos repasses realizados à instituição de ensino.";
+    const texto6 = "Com base nos fatos e na legislação vigente, solicita-se a devolução dos valores, observando os prazos regulamentares estabelecidos pelo Ministério da Educação.";
 
     // Adicionar o texto no PDF com quebras de linha
     doc.text(texto1, 20, startY + 6, { maxWidth: 170 });
     startY += 15; // Aumenta o espaço após o primeiro parágrafo
 
     doc.text(texto2, 20, startY + 6, { maxWidth: 170 });
-    startY += 12; // Espaço para o próximo parágrafo
+    startY += 7; // Espaço para o próximo parágrafo
 
     doc.text(texto3, 20, startY + 6, { maxWidth: 170 });
-    startY += 10; // Espaço para o próximo parágrafo
+    startY += 7; // Espaço para o próximo parágrafo
+
+    doc.text(texto4, 20, startY + 6, { maxWidth: 170 });
+    startY += 7; // Espaço para o próximo parágrafo
+
+    doc.text(texto5, 20, startY + 6, { maxWidth: 170 });
+    startY += 7; // Espaço para o próximo parágrafo
+
+    doc.text(texto6, 20, startY + 6, { maxWidth: 170 });
+    startY += 7; // Espaço para o próximo parágrafo
 
     // Seção 4 - Demonstrativo financeiro
     doc.setFont("helvetica", "bold");
@@ -324,7 +333,7 @@ function exportarRequerimento() {
     doc.setFontSize(10);
     doc.setTextColor(corTextoSecundario); // Cor secundária
     doc.text("Detalhes adicionais:", 20, doc.lastAutoTable.finalY + 18);
-    doc.setFontSize(8);
+    doc.setFontSize(10);
     doc.text(outrosDetalhes, 20, doc.lastAutoTable.finalY + 23, { maxWidth: 170 });
     
     // Chave Pix com cor secundária
@@ -332,10 +341,10 @@ function exportarRequerimento() {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
     doc.setTextColor(corTextoSecundario); // Cor secundária
-    doc.text("Autorizo que o ressarcimento seja realizado por meio da chave Pix:", 20, doc.lastAutoTable.finalY + 43);
+    doc.text("Autorizo que o ressarcimento seja realizado por meio da chave Pix:", 20, doc.lastAutoTable.finalY + 32);
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(8);
-    doc.text(chavepix, 135, doc.lastAutoTable.finalY + 43, { maxWidth: 170 });
+    doc.setFontSize(10);
+    doc.text(chavepix, 135, doc.lastAutoTable.finalY + 32, { maxWidth: 170 });
     
     // Adicionar campo de Data
     const dataAtual = new Date();
@@ -361,15 +370,15 @@ function exportarRequerimento() {
     doc.setTextColor(corTextoSecundario); // Cor secundária
 
     // Adicionar campo de Assinatura do Estudante
-    doc.text("Declaro, sob as penas da lei, serem verdadeiras as informações acima.", 20, doc.lastAutoTable.finalY + 50);
-    doc.text("Data:", 20, doc.lastAutoTable.finalY + 55);
-    doc.text(dataFormatada, 30, doc.lastAutoTable.finalY + 55);
-    doc.text("_______________________________________________________________", 20, doc.lastAutoTable.finalY + 62);
-    doc.text("Assinatura do(a) Estudante", 20, doc.lastAutoTable.finalY + 67);
+    doc.text("Declara, sob as penas da lei, serem verdadeiras as informações acima.", 20, doc.lastAutoTable.finalY + 40);
+    doc.text("Data:", 20, doc.lastAutoTable.finalY + 45);
+    doc.text(dataFormatada, 30, doc.lastAutoTable.finalY + 45);
+    doc.text("_______________________________________________________________", 20, doc.lastAutoTable.finalY + 52);
+    doc.text("Assinatura do(a) Estudante", 20, doc.lastAutoTable.finalY + 57);
    
 
     // Criar o nome do arquivo com o nome do usuário
-    const nomeArquivo = `Requerimento de Reembolso - ${nome}.pdf`;
+    const nomeArquivo = `Profies - Requerimento de Reembolso - ${nome}.pdf`;
     
     // Salvar o PDF
     doc.save(nomeArquivo)
@@ -575,27 +584,37 @@ function preencherSemestres() {
     const anoAtual = dataAtual.getFullYear();
     const mesAtual = dataAtual.getMonth() + 1; // Janeiro é 0, adicionamos 1
 
-    // Determinar os semestres
-    let semestres = [];
-
-    // Adiciona o semestre atual
+    // Determinar o semestre atual
+    let semestreAtual, anoSemestreAtual;
     if (mesAtual <= 6) {
         // Estamos no 1º semestre
-        semestres.push(`01/${anoAtual}`);
+        semestreAtual = 1;
+        anoSemestreAtual = anoAtual;
     } else {
         // Estamos no 2º semestre
-        semestres.push(`02/${anoAtual}`);
+        semestreAtual = 2;
+        anoSemestreAtual = anoAtual;
     }
 
-    // Adiciona os dois semestres anteriores
-    semestres.push(`02/${anoAtual - 1}`, `01/${anoAtual - 1}`);
+    // Gerar os últimos 3 semestres (18 meses) retroativamente
+    let semestres = [];
+    let semestre = semestreAtual;
+    let ano = anoSemestreAtual;
 
-    // Ordenar em ordem decrescente
-    semestres.sort((a, b) => {
-        const [semestreA, anoA] = a.split("/");
-        const [semestreB, anoB] = b.split("/");
-        return parseInt(anoB) - parseInt(anoA) || parseInt(semestreB) - parseInt(semestreA);
-    });
+    for (let i = 0; i < 3; i++) {
+        // Adicionar o semestre atual à lista
+        semestres.push(`${semestre.toString().padStart(2, '0')}/${ano}`);
+        
+        // Calcular o semestre anterior
+        if (semestre === 1) {
+            // Se estamos no 1º semestre, o anterior é o 2º semestre do ano anterior
+            semestre = 2;
+            ano = ano - 1;
+        } else {
+            // Se estamos no 2º semestre, o anterior é o 1º semestre do mesmo ano
+            semestre = 1;
+        }
+    }
 
     // Limpar opções existentes
     selectSemestre.innerHTML = "";
@@ -609,7 +628,7 @@ function preencherSemestres() {
     placeholder.hidden = true; // Esconde a opção no menu suspenso
     selectSemestre.appendChild(placeholder);
 
-    // Adicionar os semestres calculados
+    // Adicionar os semestres calculados (já estão na ordem correta - mais recente para mais antigo)
     semestres.forEach((semestre) => {
         const option = document.createElement("option");
         option.value = semestre;
@@ -662,25 +681,3 @@ function atualizarMesesTabela() {
     });
 }
 
-function aplicarCorTabela(linha, mensalidade, seguroTaxa, outrosDebitos, fies, estudante, outrosCreditos) {
-    // Função para aplicar a cor de texto de acordo com o tipo de valor (débito ou crédito)
-    function aplicarCor(campo, valor, tipo) {
-        // Débito (vermelho)
-        if (tipo === 'debito') {
-            campo.style.color = "#EE6A43";  // Vermelho para débitos
-        }
-        // Crédito (azul)
-        else if (tipo === 'credito') {
-            campo.style.color = "#0880cf";  // Azul para créditos
-        }
-    }
-
-    // Aplica as cores nas células da tabela (apenas no texto)
-    aplicarCor(linha.querySelector('td:nth-child(2) input'), mensalidade, 'debito');  // Valor da mensalidade (débito)
-    aplicarCor(linha.querySelector('td:nth-child(5) input'), seguroTaxa, 'debito');  // Seguro prestamista + taxa administrativa (débito)
-    aplicarCor(linha.querySelector('td:nth-child(6) input'), outrosDebitos, 'debito');  // Outros débitos (débito)
-
-    aplicarCor(linha.querySelector('td:nth-child(3) input'), fies, 'credito');  // Valor pago pelo FIES (crédito)
-    aplicarCor(linha.querySelector('td:nth-child(4) input'), estudante, 'credito');  // Valor pago pelo estudante (crédito)
-    aplicarCor(linha.querySelector('td:nth-child(7) input'), outrosCreditos, 'credito');  // Outros créditos (crédito)
-}
